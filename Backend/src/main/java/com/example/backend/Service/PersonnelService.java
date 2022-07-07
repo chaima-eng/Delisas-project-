@@ -20,10 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.xml.ws.Response;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -120,6 +119,12 @@ public class PersonnelService implements IntPersonnelService
     }
 
 
+
+
+    @Override
+    public List<Personnel> getAllPersonnel() {
+        return (List<Personnel>) MyPersonnelRepo.findAll();
+    }
 
 
 

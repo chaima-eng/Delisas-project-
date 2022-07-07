@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.ws.Response;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,12 +31,11 @@ public interface IntPersonnelService {
     ResponseEntity<Personnel> updatePerso(int id,Personnel personnel);
 
 
-
      Map<String, Boolean> deletePerso( int PersoId)
             throws ResourceNotFoundException;
 
 
-
+    List<Personnel> getAllPersonnel();
 
 
 

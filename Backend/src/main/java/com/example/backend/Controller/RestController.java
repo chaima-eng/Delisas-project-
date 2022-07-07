@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.xml.ws.Response;
 
+import java.util.List;
 import java.util.Map;
 
 @org.springframework.web.bind.annotation.RestController
@@ -62,6 +63,12 @@ public class RestController {
         return Myservice.deletePerso(PersoId);
     }
 
+
+    @GetMapping("/personnel")
+    List<Personnel> getAllPersonnel()
+    {
+        return Myservice.getAllPersonnel();
+    }
 
 
 
