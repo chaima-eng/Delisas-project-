@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.User;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Repository.IntPersonnelRepo;
 import com.example.backend.Service.IntPersonnelService;
@@ -28,10 +29,39 @@ public class RestController {
     @Autowired
     IntPersonnelService Myservice;
 
+
+
     @Autowired
     private IntPersonnelRepo MyPersonnelRepo;
     @Autowired
     ServletContext context;
+
+    @GetMapping("/User/{username}")
+    public Personnel loadUserByUserName(@PathVariable("username")  String UserName)
+    {
+        return Myservice.loadUserByUserName(UserName);
+
+    }
+
+    /*
+    @GetMapping("/User/{password}/{username}")
+    public void LoginPersonnel(@PathVariable("password") String password,@PathVariable("username") String username)
+    {
+        Myservice.LoginPersonnel(password,username);
+
+    }
+
+     */
+
+
+    @GetMapping("/LoginAdmin/{password}/{username}")
+    public void LoginAdmin(@PathVariable("password") String password,@PathVariable("username") String username)
+    {
+        Myservice.LoginAdmin(password,username);
+
+    }
+
+
 
     @PostMapping("/personnel")
     public ResponseEntity<Response>  addPersonnel (@RequestPart("file") MultipartFile file,
@@ -40,6 +70,7 @@ public class RestController {
 
         return Myservice.addPersonnel(file,personnel);
     }
+
 
 
     @GetMapping("/personnel/{id}")

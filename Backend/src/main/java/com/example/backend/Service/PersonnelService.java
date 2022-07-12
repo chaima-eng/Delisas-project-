@@ -10,8 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,10 +37,45 @@ public class PersonnelService implements IntPersonnelService
     @Autowired
     ServletContext context;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    public void LoginAdmin(String password, String username) {
+        Personnel perso = new Personnel();
+        if(username.equals("admin")&&password.equals("admin")) {
+            System.out.println("Welcome");
+            perso.setPassword(password);
+            perso.setUserName(username);
+            MyPersonnelRepo.save(perso);
+        }
+
+       /* else
+            System.out.println("verify your credentials");
+
+        */
+
+    }
+
+
+    @Override
+    public Personnel loadUserByUserName(String UserName)
+    {
+
+        return MyPersonnelRepo.findByUserName(UserName);
+    }
+
+
 
     @Override
     public ResponseEntity<Response> addPersonnel(MultipartFile file, String personnel) throws JsonParseException, JsonMappingException, Exception
     {
+
         System.out.println("Ok .............");
         Personnel perso = new ObjectMapper().readValue(personnel, Personnel.class);
         boolean isExit = new File(context.getRealPath("/Images/")).exists();
@@ -60,6 +98,10 @@ public class PersonnelService implements IntPersonnelService
 
 
 
+      //   String pass = perso.getPassword();
+         String DefaultPasword = perso.getTel();
+
+        perso.setPassword(passwordEncoder.encode(DefaultPasword));
         perso.setPhoto(newFileName);
 
         Personnel art = MyPersonnelRepo.save(perso);
@@ -111,7 +153,7 @@ public class PersonnelService implements IntPersonnelService
     @Override
     public Map<String, Boolean> deletePerso(int PersoId) throws ResourceNotFoundException {
         Personnel Personnel = MyPersonnelRepo.findById(PersoId)
-                .orElseThrow(() -> new ResourceNotFoundException("Article not found  id :: " + PersoId));
+                .orElseThrow(() -> new ResourceNotFoundException(" not found   :: " + PersoId));
         MyPersonnelRepo.delete(Personnel);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
@@ -125,6 +167,30 @@ public class PersonnelService implements IntPersonnelService
     public List<Personnel> getAllPersonnel() {
         return (List<Personnel>) MyPersonnelRepo.findAll();
     }
+
+ /*
+    @Override
+    public void LoginPersonnel(String password, String username) {
+
+        MyPersonnelRepo.findAll().forEach(P -> {
+            if (P.getPassword().equals(password) && P.getUserName().equals(username))
+
+                System.out.println("done");
+
+            else
+
+                System.out.println("erreur");
+
+
+        } );
+
+
+
+
+    }
+
+
+     */
 
 
 

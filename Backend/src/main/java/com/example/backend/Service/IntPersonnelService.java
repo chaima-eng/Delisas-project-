@@ -19,6 +19,13 @@ import java.util.Map;
 
 public interface IntPersonnelService {
 
+
+  //  void LoginPersonnel(String password,String username );
+
+    void LoginAdmin(String password,String username);
+
+     Personnel loadUserByUserName(String UserName);
+
     ResponseEntity<Response>  addPersonnel ( MultipartFile file,
                                           String personnel)
             throws JsonParseException, JsonMappingException, Exception;
@@ -36,6 +43,7 @@ public interface IntPersonnelService {
 
 
     List<Personnel> getAllPersonnel();
+
 
 
 
