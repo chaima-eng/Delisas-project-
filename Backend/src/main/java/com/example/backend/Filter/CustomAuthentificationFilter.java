@@ -2,8 +2,11 @@ package com.example.backend.Filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.backend.Entity.Personnel;
+import com.example.backend.Repository.IntPersonnelRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +30,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
 public class CustomAuthentificationFilter extends UsernamePasswordAuthenticationFilter {
+    @Autowired
+    private IntPersonnelRepo MyPersonnelRepo;
 
     private final AuthenticationManager authenticationManager;
 
@@ -70,15 +75,15 @@ public class CustomAuthentificationFilter extends UsernamePasswordAuthentication
                 .withExpiresAt(new Date(System.currentTimeMillis()+ 30*60*1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
-      /*  response.setHeader("access_token",access_token);
-        response.setHeader("refresh_token",refresh_token);
-
-       */
-
         Map<String,String> tokens=new HashMap<>();
         tokens.put("access_token",access_token);
         tokens.put("refresh_token",refresh_token);
+        tokens.put("user-name", user.getUsername());
+        tokens.put("role", String.valueOf(user.getAuthorities()));
+
+
         response.setContentType(APPLICATION_JSON_VALUE);
+
         new ObjectMapper().writeValue(response.getOutputStream(),tokens);
 
     }

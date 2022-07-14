@@ -56,26 +56,6 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
-/*
-    @Override
-    public void LoginAdmin(String password, String username) {
-        Personnel perso = new Personnel();
-        if(username.equals("admin")&&password.equals("admin")) {
-            System.out.println("Welcome");
-
-            perso.setPassword(password);
-            perso.setUserName(username);
-            MyPersonnelRepo.save(perso);
-        }
-    }
-
-
-
-
-
-
- */
-
 
     @Override
     public ResponseEntity<Response> addPersonnel(MultipartFile file, String personnel,int idroles) throws JsonParseException, JsonMappingException, Exception
