@@ -2,6 +2,7 @@ package com.example.backend.Service;
 
 
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.Roles;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -20,17 +21,21 @@ import java.util.Map;
 public interface IntPersonnelService {
 
 
+  Personnel getPersonnel(String username);
+
+
   //  void LoginPersonnel(String password,String username );
 
-    void LoginAdmin(String password,String username);
+   void addRoleToUser(String username, String rolename);
+  //  void LoginAdmin(String password,String username);
 
-     Personnel loadUserByUserName(String UserName);
 
     ResponseEntity<Response>  addPersonnel ( MultipartFile file,
-                                          String personnel)
+                                          String personnel,int idroles)
             throws JsonParseException, JsonMappingException, Exception;
 
 
+    public Roles save(Roles role);
 
     ResponseEntity<Personnel> getPersoById(int Id) throws ResourceNotFoundException;
 

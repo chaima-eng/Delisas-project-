@@ -1,6 +1,11 @@
 package com.example.backend.Controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.Roles;
 import com.example.backend.Entity.User;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Repository.IntPersonnelRepo;
@@ -8,21 +13,36 @@ import com.example.backend.Service.IntPersonnelService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Response;
 
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.stream;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/Rest")
+@Slf4j
 public class RestController {
 
 
@@ -36,57 +56,101 @@ public class RestController {
     @Autowired
     ServletContext context;
 
-    @GetMapping("/User/{username}")
-    public Personnel loadUserByUserName(@PathVariable("username")  String UserName)
-    {
-        return Myservice.loadUserByUserName(UserName);
+
+
+    @GetMapping("/token/refresh")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String authorizationHeader = request.getHeader(AUTHORIZATION);
+        if(authorizationHeader!=null&& authorizationHeader.startsWith("bearer "))
+        {
+            try
+            {       String refresh_token = authorizationHeader.substring("bearer ".length());
+                Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+                JWTVerifier verifier = JWT.require(algorithm).build();
+                DecodedJWT decodedJWT= verifier.verify(refresh_token);
+                String username = decodedJWT.getSubject();
+                Personnel user = Myservice.getPersonnel(username);
+
+                String access_token = JWT.create()
+                        .withSubject(user.getUserName())
+                        .withExpiresAt(new Date(System.currentTimeMillis()+ 10*60*1000))
+                        .withIssuer(request.getRequestURL().toString())
+                        .withClaim("roles",user.getRoles().stream().map(Roles::getName).collect(Collectors.toList()))
+                        .sign(algorithm);
+                Map<String,String> tokens=new HashMap<>();
+                tokens.put("access_token",access_token);
+                tokens.put("refresh_token",refresh_token);
+                response.setContentType(APPLICATION_JSON_VALUE);
+                new ObjectMapper().writeValue(response.getOutputStream(),tokens);
+            }
+            catch (Exception exception)
+            {
+                log.error("Error logging in {} ",exception.getMessage());
+                response.setHeader("error",exception.getMessage());
+                response.setStatus(FORBIDDEN.value());
+                // response.sendError(FORBIDDEN.value());
+                Map<String,String> error=new HashMap<>();
+                error.put("error_msg",exception.getMessage());
+                response.setContentType(APPLICATION_JSON_VALUE);
+                new ObjectMapper().writeValue(response.getOutputStream(),error);
+
+            }
+        }
+        else{
+            throw new RuntimeException("refresh token is missing ");
+        }
+
 
     }
 
-    /*
-    @GetMapping("/User/{password}/{username}")
-    public void LoginPersonnel(@PathVariable("password") String password,@PathVariable("username") String username)
+
+
+
+
+
+
+
+
+
+
+
+
+    @PostMapping("personnel/roles/{username}/{rolename}")
+    void addRoleToUser(@PathVariable(value = "username")String username,@PathVariable(value = "rolename") String rolename)
     {
-        Myservice.LoginPersonnel(password,username);
+        Myservice.addRoleToUser(username,rolename);
 
     }
-
-     */
-
-
-    @GetMapping("/LoginAdmin/{password}/{username}")
-    public void LoginAdmin(@PathVariable("password") String password,@PathVariable("username") String username)
+    @PostMapping("personnel/roles")
+    public Roles save(@RequestBody Roles role)
     {
-        Myservice.LoginAdmin(password,username);
-
+        return Myservice.save(role);
     }
 
-
-
-    @PostMapping("/personnel")
+    @PostMapping("/personnel/{idrole}")
     public ResponseEntity<Response>  addPersonnel (@RequestPart("file") MultipartFile file,
-                                                   @RequestParam("personnel") String personnel) throws JsonParseException, JsonMappingException, Exception
+                                                   @RequestParam("personnel") String personnel,@PathVariable("idrole") int idrole) throws JsonParseException, JsonMappingException, Exception
     {
 
-        return Myservice.addPersonnel(file,personnel);
+        return Myservice.addPersonnel(file,personnel,idrole);
     }
 
 
 
-    @GetMapping("/personnel/{id}")
+    @GetMapping("/personnels/{id}")
     public ResponseEntity<Personnel> getPersoById(@PathVariable(value = "id") int Id)
             throws ResourceNotFoundException
     {
         return Myservice.getPersoById(Id);
     }
 
-    @PutMapping("/perso/{id}")
+    @PutMapping("/personnel/{id}")
     public ResponseEntity<Personnel> updatePerso(@PathVariable("id") int id, @RequestBody Personnel personnel)
     {
         return Myservice.updatePerso(id,personnel);
     }
 
-    @DeleteMapping("/Perso/{id}")
+    @DeleteMapping("/personnel/{id}")
     public Map<String, Boolean> deletePerso(@PathVariable(value = "id") int PersoId)
             throws ResourceNotFoundException
 
@@ -95,11 +159,14 @@ public class RestController {
     }
 
 
-    @GetMapping("/personnel")
+    @GetMapping("/personnels")
     List<Personnel> getAllPersonnel()
     {
         return Myservice.getAllPersonnel();
     }
+
+
+
 
 
 

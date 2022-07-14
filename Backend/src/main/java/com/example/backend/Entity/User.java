@@ -22,6 +22,8 @@ public abstract class User  {
     private int idUser;
     private String userName;
     //private String mail;
+
+
     @JsonIgnore
     private String password;
     private String cin;

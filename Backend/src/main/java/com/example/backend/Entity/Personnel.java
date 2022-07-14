@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,8 +22,16 @@ public class Personnel extends User {
     private String permis;
     private String cartegrise;
     private String photo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Roles> roles = new HashSet<>();
+
+/*
     @Enumerated(EnumType.STRING)
     private Role role;
+
+ */
+
+
     private Float salaire;
     private Integer montant_l;
 
