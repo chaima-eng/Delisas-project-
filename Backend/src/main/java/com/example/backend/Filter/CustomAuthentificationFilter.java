@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.example.backend.Entity.Personnel;
 import com.example.backend.Repository.IntPersonnelRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,12 +47,17 @@ public class CustomAuthentificationFilter extends UsernamePasswordAuthentication
 
 
 
+    @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String Username= request.getParameter("username");
         String password= request.getParameter("password");
+
         log.info("username is : {}",Username);
         log.info("pass is : {}",password);
+
+
+
         UsernamePasswordAuthenticationToken AuthenticationToken= new UsernamePasswordAuthenticationToken(Username,password);
         return authenticationManager.authenticate(AuthenticationToken);
 

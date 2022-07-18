@@ -25,6 +25,7 @@ public class Personnel extends User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Roles> roles = new HashSet<>();
 
+
 /*
     @Enumerated(EnumType.STRING)
     private Role role;

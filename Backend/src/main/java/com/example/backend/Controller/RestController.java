@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +35,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Response;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -57,6 +60,45 @@ public class RestController {
     private IntPersonnelRepo MyPersonnelRepo;
     @Autowired
     ServletContext context;
+
+/*
+    @PostMapping("/users/login")
+    public ResponseEntity<?> authenticateUser( @RequestBody Personnel data) {
+        System.out.println("aaaa");
+        System.out.println(data.getPassword());
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        data.getUserName(),
+                        data.getPassword())
+
+        );
+        System.out.println("bbbbb");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                userDetails.getRole()));
+    }
+
+
+
+
+ */
+
+
+
+
+
+
+
+
+
 
 
 
@@ -112,18 +154,6 @@ public class RestController {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     @PostMapping("personnel/roles/{username}/{rolename}")
     void addRoleToUser(@PathVariable(value = "username")String username,@PathVariable(value = "rolename") String rolename)
     {
@@ -175,7 +205,11 @@ public class RestController {
     }
 
 
-
+    @GetMapping(path="/Imgarticles/{id}")
+    public byte[] getPhoto(@PathVariable("id") int id) throws Exception{
+        Personnel personnel   = MyPersonnelRepo.findById(id).get();
+        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+personnel.getPhoto()));
+    }
 
 
 

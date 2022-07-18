@@ -24,11 +24,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.xml.ws.Response;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -124,7 +128,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
    @Override
     public ResponseEntity<Personnel> updatePerso(int id, Personnel personnel) {
-        System.out.println("Update Personnel with ID = " + id + "...");
+
         Optional<Personnel> Personnelinfo = MyPersonnelRepo.findById(id);
         if (Personnelinfo.isPresent()) {
             Personnel perso = Personnelinfo.get();
@@ -217,29 +221,6 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
- /*
-    @Override
-    public void LoginPersonnel(String password, String username) {
-
-        MyPersonnelRepo.findAll().forEach(P -> {
-            if (P.getPassword().equals(password) && P.getUserName().equals(username))
-
-                System.out.println("done");
-
-            else
-
-                System.out.println("erreur");
-
-
-        } );
-
-
-
-
-    }
-
-
-     */
 
 
 
