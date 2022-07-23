@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 public class Fournisseur extends User {
     private String nom_societe;
     private String adresse_societe;
+    private String gouvernerat;
+
 
 
 

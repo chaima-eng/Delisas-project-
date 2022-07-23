@@ -20,12 +20,13 @@ public class Colis implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idColis;
-    private int code_a_bar;
+    private String code_a_bar;
     private int qrCode;
     private String nom_complet_client;
     private int num_tel;
     private int num_tel_2;
-
+    private int total;
+    private int quantite;
 
     private LocalDate date_livraison;
     private String delegation_client;
@@ -33,7 +34,7 @@ public class Colis implements Serializable {
     private int nb_piece;
     private int largeur;
     private int longueur;
-    private String hauteur;
+    private int hauteur;
     private String mode_paiement;
     private String service_colis;
     private int code_colis;

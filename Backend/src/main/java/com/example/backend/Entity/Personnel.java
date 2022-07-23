@@ -26,11 +26,11 @@ public class Personnel extends User {
     private Set<Roles> roles = new HashSet<>();
 
 
-/*
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
- */
+
 
 
     private Float salaire;

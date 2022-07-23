@@ -4,12 +4,16 @@ import com.example.backend.Entity.Colis;
 import com.example.backend.Entity.Personnel;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Exception.ResourceNotFoundException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.google.zxing.WriterException;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfPTable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +27,9 @@ public interface IntColisService {
       ResponseEntity<Colis> getColisyId(int Id)  throws ResourceNotFoundException;
 
 
-
+    void export(HttpServletResponse response, int
+            idcolis, String text, String filePath, int width, int height)
+            throws DocumentException, IOException, WriterException;
 
     ResponseEntity<Colis> updateColis(int id, Colis colis);
 
@@ -33,23 +39,20 @@ public interface IntColisService {
 
 
      List<Colis> getAllColis();
-     /*
-     void generateQRCodeImage(String text,  String filePath)
-            throws WriterException, IOException;
-      byte[] getQRCodeImage(String text) throws WriterException, IOException ;
 
-      */
 
-    void export(HttpServletResponse response,int
-            idcolis,String text, String filePath) throws DocumentException, IOException,WriterException;
+    void export(HttpServletResponse response,int idF, int idS,int
+            idcolis,String chiffreCodeBar,int width, int height, String filePath) throws DocumentException, IOException,WriterException;
 
 
 
 
+    byte[] getBarCodeImage(String text, int width, int height);
 
 
 
-
+    ResponseEntity<Response> addSociete(MultipartFile file, String Societe)
+            throws JsonParseException, JsonMappingException, Exception;
 
 
 
