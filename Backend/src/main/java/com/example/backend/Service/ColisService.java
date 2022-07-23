@@ -158,6 +158,12 @@ public class ColisService implements IntColisService {
         document.add(tab);
 
 
+
+        Paragraph p0 = new Paragraph("cachet : " , font2);
+        document.add(p0);
+
+        document.add(tab);
+
         //Table 0
 
         PdfPTable table0 = new PdfPTable(2);
@@ -189,18 +195,8 @@ public class ColisService implements IntColisService {
 
         table0.addCell("Governorat : "+F.getGouvernerat() );
         table0.addCell("Téléphone 2 :  "+colis.getNum_tel_2());
-        table0.addCell("Governorat : "+F.getGouvernerat() );
-
-
-
-
-
-
-
-
-
-
-
+        table0.addCell("Adresse : "+colis.getAdresse_client() );
+        table0.addCell("Téléphone : "+F.getTel() );
 
 
         document.add(table0);
