@@ -51,6 +51,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/Rest")
 @Slf4j
+@CrossOrigin("*")
 public class RestController {
 
 
