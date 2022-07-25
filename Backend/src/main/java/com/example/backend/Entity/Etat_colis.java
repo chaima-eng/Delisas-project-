@@ -9,6 +9,7 @@ public enum Etat_colis {
     Planification_retour,
     Retourné,
     Livrée_payée,
+    échange
 
 
 }

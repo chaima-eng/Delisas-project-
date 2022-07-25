@@ -5,9 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bde83ef-6cd7-424d-bbc6-5664e4347f92" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_jakarta_mail_1_6_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_expression_processor_1_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_2_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ognl_ognl_3_0_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_3_0_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_5_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_3_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_2_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring4_2_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_0_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_16_1_GA.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/BackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestColis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestColis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Colis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Colis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Etat_colis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Etat_colis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Fournisseur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Fournisseur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Hub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Hub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Personnel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Personnel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntColisRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntColisRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntPersonnelRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntPersonnelRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntPersonnelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntPersonnelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/BackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/BackendApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Colis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Colis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Fournisseur.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Fournisseur.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Hub.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Hub.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Personnel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/Personnel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Filter/CustomAuthorizationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Filter/CustomAuthorizationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Repository/IntPersonnelRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Repository/IntPersonnelRepo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntColisService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntPersonnelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntPersonnelService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +63,8 @@
       <list>
         <option value="Enum" />
         <option value="FxmlFile" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -47,26 +91,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Shayma/Documents/GitHub/Delisas-project-/Backend/src/main/java/com/example/backend/Entity&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;2e427c268ac1768b9add94b65e2d6c14&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Shayma/Documents/GitHub/Delisas-project-/Backend/src/main/java/com/example/backend/Service",
+    "spring.configuration.checksum": "2e427c268ac1768b9add94b65e2d6c14"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.backend.Entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Shayma\Documents\GitHub\Delisas-project-\Backend\src\main\java\com\example\backend\Service" />
       <recent name="C:\Users\Shayma\Documents\GitHub\Delisas-project-\Backend\src\main\java\com\example\backend\Entity" />
       <recent name="C:\Users\Shayma\Documents\GitHub\Delisas-project-\Backend\src\main\java\com\example\backend" />
       <recent name="C:\Users\Shayma\Documents\GitHub\Delisas-project-\Backend\src\main\java\com\example\backend\Security" />
@@ -77,8 +122,10 @@
       <recent name="C:\Users\Shayma\Documents\GitHub\Delisas-project-\Backend\src\main\Webapp\Images" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.backend.Controller" />
+      <recent name="com.example.backend.Entity" />
       <recent name="com.example.backend.Service" />
+      <recent name="com.example.backend.Repository" />
+      <recent name="com.example.backend.Controller" />
       <recent name="com.example.backend.SwaggerConfig" />
     </key>
   </component>
@@ -115,7 +162,7 @@
       <workItem from="1658324512953" duration="6475000" />
       <workItem from="1658408402942" duration="79000" />
       <workItem from="1658420787817" duration="907000" />
-      <workItem from="1658424360913" duration="25899000" />
+      <workItem from="1658424360913" duration="53727000" />
     </task>
     <servers />
   </component>

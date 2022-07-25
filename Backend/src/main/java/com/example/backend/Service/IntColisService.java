@@ -22,7 +22,7 @@ import java.util.Map;
 public interface IntColisService {
 
 
-     Colis save(Colis colis);
+     Colis save(Colis colis,int idhub,int idF);
 
       ResponseEntity<Colis> getColisyId(int Id)  throws ResourceNotFoundException;
 
@@ -31,10 +31,10 @@ public interface IntColisService {
             idcolis, String text, String filePath, int width, int height)
             throws DocumentException, IOException, WriterException;
 
-    ResponseEntity<Colis> updateColis(int id, Colis colis);
+   // ResponseEntity<Colis> updateColis(int id, Colis colis);
+    Colis updateColis(Colis colis) throws ResourceNotFoundException;
 
-
-     Map<String, Boolean> DeleteColis(int colisId)
+    Map<String, Boolean> DeleteColis(int colisId)
              throws ResourceNotFoundException;
 
 
@@ -47,12 +47,8 @@ public interface IntColisService {
 
 
 
-    byte[] getBarCodeImage(String text, int width, int height);
 
 
-
-    ResponseEntity<Response> addSociete(MultipartFile file, String Societe)
-            throws JsonParseException, JsonMappingException, Exception;
 
 
 

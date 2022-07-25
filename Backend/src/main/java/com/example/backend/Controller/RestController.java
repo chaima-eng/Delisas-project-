@@ -1,5 +1,7 @@
 package com.example.backend.Controller;
 
+import javax.servlet.http.Cookie;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -8,6 +10,7 @@ import com.example.backend.Entity.Personnel;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Entity.User;
 import com.example.backend.Exception.ResourceNotFoundException;
+import com.example.backend.Payload.LoginRequest;
 import com.example.backend.Repository.IntPersonnelRepo;
 import com.example.backend.Service.IntPersonnelService;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -183,10 +186,9 @@ public class RestController {
         return Myservice.getPersoById(Id);
     }
 
-    @PutMapping("/personnel/{id}")
-    public ResponseEntity<Personnel> updatePerso(@PathVariable("id") int id, @RequestBody Personnel personnel)
-    {
-        return Myservice.updatePerso(id,personnel);
+    @PutMapping("/personnel")
+    public Personnel updatePerso( @RequestBody Personnel personnel) throws ResourceNotFoundException {
+        return Myservice.updatePerso(personnel);
     }
 
     @DeleteMapping("/personnel/{id}")
@@ -210,6 +212,16 @@ public class RestController {
         Personnel personnel   = MyPersonnelRepo.findById(id).get();
         return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+personnel.getPhoto()));
     }
+
+
+
+
+
+
+
+
+
+
 
 
 

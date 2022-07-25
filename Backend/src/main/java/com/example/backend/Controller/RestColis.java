@@ -2,6 +2,8 @@ package com.example.backend.Controller;
 
 import antlr.CodeGenerator;
 import com.example.backend.Entity.Colis;
+import com.example.backend.Entity.Etat_colis;
+import com.example.backend.Entity.Fournisseur;
 import com.example.backend.Entity.Personnel;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Repository.IntColisRepo;
@@ -53,10 +55,10 @@ public class RestColis {
     private IntColisRepo MyColisRepo;
 
 
-    @PostMapping("/save")
-    public Colis save(@RequestBody Colis colis)
+    @PostMapping("/save/{idhub}/{idF}")
+    public Colis save(@RequestBody Colis colis,@PathVariable("idhub") int idhub,@PathVariable("idF") int idF)
     {
-        return Myservice.save(colis);
+        return Myservice.save(colis,idhub,idF);
     }
     @GetMapping("/getById/{id}")
     public ResponseEntity<Colis> getColisByID(@PathVariable(value = "id") int Id)
@@ -65,11 +67,10 @@ public class RestColis {
         return Myservice.getColisyId(Id);
     }
 
-    //to check !!
-    @PutMapping("/updateColis/{id}")
-    public ResponseEntity<Colis> updateColis(@PathVariable("id") int id, @RequestBody Colis colis)
-    {
-        return Myservice.updateColis(id,colis);
+
+    @PutMapping("/updateColis")
+    public Colis updateColis( @RequestBody Colis colis) throws ResourceNotFoundException {
+        return Myservice.updateColis(colis);
     }
 
 
@@ -129,14 +130,49 @@ public class RestColis {
 
 
 
-    @RequestMapping(value = "/barcode/{id}", method = RequestMethod.GET)
-    public void barcode(@PathVariable("id") String id, HttpServletResponse response) throws Exception
+    @GetMapping("/Generate/{idColis}")
+    public String GenerateChiffreCodeBar(@PathVariable("idColis") int idColis)
     {
-        response.setContentType("image/png");
-        OutputStream outputStream = response.getOutputStream();
-        outputStream.write(Myservice.getBarCodeImage(id, 200, 50));
-        outputStream.flush();
-        outputStream.close();
+        String x = "";
+
+        Colis colis=MyColisRepo.findById(idColis).orElse(null);
+        if(colis.getEtat_colis().equals(Etat_colis.Livré))
+        {
+            x="01";
+            System.out.println("chiffreCodeBar = " + x);
+
+        }
+        else if(colis.getEtat_colis().equals(Etat_colis.échange))
+        {
+            x="02";
+            System.out.println("chiffreCodeBar = " + x);
+        }
+        else
+        {
+            x="00";
+        }
+        String var ="";
+        String chiffreCodeBar ="";
+        String idf ="";
+        String idC="";
+        for (Fournisseur F:colis.getFournisseurs())
+        {
+            if(idColis!=0)
+            {
+                idf= String.valueOf(F.getIdUser());
+                var= String.valueOf(colis.getHub().getIdhub());
+                System.out.println( var);
+                idC= String.valueOf(colis.getIdColis());
+                chiffreCodeBar = x.concat("0").concat(var).concat(idf).concat(idC);
+                System.out.println("valeur final = " + chiffreCodeBar);
+            }
+        }
+        colis.setCode_a_bar(chiffreCodeBar);
+        MyColisRepo.save(colis);
+
+        return chiffreCodeBar;
+
+
     }
 
 
@@ -145,11 +181,13 @@ public class RestColis {
 
 
 
-    @PostMapping("/add")
-    @ResponseBody
-    public ResponseEntity<Response>  addSociete(@RequestPart("file") MultipartFile file, @RequestParam("societe") String s)throws JsonParseException, JsonMappingException, Exception {
-        return Myservice.addSociete(file,s);
-    }
+
+
+
+
+
+
+
 
 
 

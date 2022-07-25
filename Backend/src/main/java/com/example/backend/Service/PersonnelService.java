@@ -1,7 +1,6 @@
 package com.example.backend.Service;
 
 import com.example.backend.Entity.Personnel;
-import com.example.backend.Entity.Role;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Repository.IntPersonnelRepo;
@@ -13,26 +12,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.xml.ws.Response;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -52,10 +45,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
 
 
@@ -125,6 +115,21 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
         return ResponseEntity.ok().body(personnel);
     }
 
+    @Override
+    public Personnel updatePerso(Personnel personnel) throws ResourceNotFoundException {
+        MyPersonnelRepo.findById(personnel.getIdUser()).orElseThrow(
+                () -> new ResourceNotFoundException("Can't update. personnel not found!")
+        );
+        return this.MyPersonnelRepo.save(personnel);
+    }
+
+
+
+
+
+
+
+    /*
 
    @Override
     public ResponseEntity<Personnel> updatePerso(int id, Personnel personnel) {
@@ -137,13 +142,15 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
             perso.setPermis(personnel.getPermis());
             perso.setMontant_l(personnel.getMontant_l());
             perso.setSalaire(personnel.getSalaire());
-            perso.setRoles(personnel.getRoles());
+            perso.setRole(personnel.getRole());
 
             return new ResponseEntity<>(MyPersonnelRepo.save(personnel), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+     */
 
     @Override
     public Map<String, Boolean> deletePerso(int PersoId) throws ResourceNotFoundException {
@@ -206,6 +213,15 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
+    @Override
+    public Personnel change_password(int id, String newPassword) {
+        // TODO Auto-generated method stub
+        Personnel user = MyPersonnelRepo.findById(id).orElse(null);
+        if(user !=null) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+        }
+        return MyPersonnelRepo.save(user);
+    }
 
 
 

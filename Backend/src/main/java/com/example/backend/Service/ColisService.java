@@ -1,12 +1,10 @@
 package com.example.backend.Service;
 
-import com.example.backend.Entity.Colis;
-import com.example.backend.Entity.Etat_colis;
-import com.example.backend.Entity.Fournisseur;
-import com.example.backend.Entity.Societe;
+import com.example.backend.Entity.*;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Repository.IntColisRepo;
 import com.example.backend.Repository.IntFournisseurRepo;
+import com.example.backend.Repository.IntHubRepo;
 import com.example.backend.Repository.SocieteRepository;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -19,8 +17,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
@@ -33,17 +29,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.google.zxing.Writer;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Response;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -69,8 +63,17 @@ public class ColisService implements IntColisService {
     private SocieteRepository MysRepo;
     @Autowired
     private IntFournisseurRepo MyFRepo;
+    @Autowired
+    private IntHubRepo MyHRepo;
+
+
+
+
+
     @Override
-    public Colis save(Colis colis) {
+    public Colis save(Colis colis, int idhub,int idF) {
+        Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
+        Hub hub= MyHRepo.findById( idhub).orElse(null);
         colis.setDate_livraison(localDate.plusDays(1));
         colis.setEtat_colis(Etat_colis.crée);
         if((colis.getLargeur()== 0)&&(colis.getLongueur()== 0)&&(colis.getHauteur()==0))
@@ -79,6 +82,9 @@ public class ColisService implements IntColisService {
             colis.setLongueur(1);
             colis.setHauteur(1);
         }
+
+        colis.setHub(hub);
+        colis.getFournisseurs().add(fournisseur);
 
         return MyColisRepo.save(colis);
     }
@@ -101,10 +107,68 @@ public class ColisService implements IntColisService {
                 .findAll();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    public String GenerateChiffreCodeBar(@PathVariable("idColis") int idColis)
+    {
+        String x = "";
+
+        Colis colis=MyColisRepo.findById(idColis).orElse(null);
+        if(colis.getEtat_colis().equals(Etat_colis.Livré))
+        {
+            x="01";
+            System.out.println("chiffreCodeBar = " + x);
+
+        }
+        else if(colis.getEtat_colis().equals(Etat_colis.échange))
+        {
+            x="02";
+            System.out.println("chiffreCodeBar = " + x);
+        }
+        else
+        {
+            x="00";
+        }
+        String var ="";
+        String chiffreCodeBar ="";
+        String idf ="";
+        String idC="";
+        for (Fournisseur F:colis.getFournisseurs())
+        {
+            if(idColis!=0)
+            {
+                idf= String.valueOf(F.getIdUser());
+                var= String.valueOf(colis.getHub().getIdhub());
+                System.out.println( var);
+                idC= String.valueOf(colis.getIdColis());
+                chiffreCodeBar = x.concat("0").concat(var).concat(idf).concat(idC);
+                System.out.println("valeur final = " + chiffreCodeBar);
+            }
+        }
+        colis.setCode_a_bar(chiffreCodeBar);
+        MyColisRepo.save(colis);
+
+        return chiffreCodeBar;
+
+
+    }
+
+
     @Override
     public void export(HttpServletResponse response,int idF ,int idS,int idcolis, String chiffreCodeBar, int width, int height, String filePath) throws DocumentException, IOException, WriterException {
 
         Colis colis = MyColisRepo.findById(idcolis).orElse(null);
+
         Societe Soc = MysRepo.findById(idS).orElse(null);
         Fournisseur F = MyFRepo.findById(idF).orElse(null);
         String image= Soc.getLogo();
@@ -113,11 +177,28 @@ public class ColisService implements IntColisService {
 
 
 
-        PdfWriter.getInstance(document, response.getOutputStream());
+        PdfWriter docWriter = null;
+
+        docWriter=PdfWriter.getInstance(document, response.getOutputStream());
 
 
 
         document.open();
+
+        //BarCode
+        PdfContentByte cb = docWriter.getDirectContent();
+
+        Barcode128 code128 = new Barcode128();
+        code128.setCode(GenerateChiffreCodeBar(idcolis).trim());
+        code128.setCodeType(Barcode128.CODE128);
+        Image code128Image = code128.createImageWithBarcode(cb, null, null);
+        code128Image.setRight(90);
+        code128Image.setAbsolutePosition(400,700);
+        code128Image.scalePercent(125);
+        document.add(code128Image);
+
+
+
         /*--Title-*/
         Font font2 = FontFactory.getFont(FontFactory.TIMES_ROMAN);
         font2.setSize(20);
@@ -205,9 +286,6 @@ public class ColisService implements IntColisService {
 
 
 
-
-
-
         //FirstTable
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
@@ -284,128 +362,10 @@ public class ColisService implements IntColisService {
         document.add(table2);
 
 
-
-
-
-
-
-
-
-
-
-
-        /*
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(chiffreCodeBar, BarcodeFormat.QR_CODE, width, height);
-
-        Path path = FileSystems.getDefault().getPath(filePath);
-        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
-        System.out.println(path);
-        Image image2 = Image.getInstance(path.toString());
-        document.add(image2);
-
-
-         */
-
-
-
-
-
-
-
         document.close();
     }
 
-    @Override
-    public  byte[] getBarCodeImage(String text, int width, int height) {
-        try {
-            Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<>();
-            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-            Writer writer = new Code128Writer();
-            BitMatrix bitMatrix = writer.encode(text, BarcodeFormat.EAN_13, width, height);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(bitMatrix, "png", byteArrayOutputStream);
-            return byteArrayOutputStream.toByteArray();
-        }
-        catch(Exception e) {
-            return null;
-        }
-    }
 
-    @Override
-    public ResponseEntity<Response> addSociete(MultipartFile file, String Societe) throws JsonParseException, JsonMappingException, Exception {
-        System.out.println("Ok .............");
-        Societe s = new ObjectMapper().readValue(Societe, Societe.class);
-
-        boolean isExit = new File(context.getRealPath("/Images/")).exists();
-        if (!isExit)
-        {
-            new File (context.getRealPath("/Images/")).mkdir();
-            System.out.println("mkdir success.............");
-        }
-        String filename = file.getOriginalFilename();
-        String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
-        File serverFile = new File (context.getRealPath("/Images/"+File.separator+newFileName));
-        try
-        {
-            System.out.println("Image");
-            FileUtils.writeByteArrayToFile(serverFile,file.getBytes());
-
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
-        s.setLogo(newFileName);
-
-        Societe art = MysRepo.save(s);
-
-
-
-        if (art != null)
-        {
-            return new ResponseEntity<Response>( HttpStatus.OK);
-        }
-        else
-        {
-            return new ResponseEntity<Response>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-
-
-
-/*
-    @Override
-    public void writeTableHeader(PdfPTable table) {
-        PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.BLUE);
-        cell.setPadding(5);
-
-        Font font = FontFactory.getFont(FontFactory.HELVETICA);
-        font.setColor(Color.WHITE);
-
-        cell.setPhrase(new Phrase("User ID", font));
-
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("E-mail", font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Full Name", font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Roles", font));
-        table.addCell(cell);
-
-        cell.setPhrase(new Phrase("Enabled", font));
-        table.addCell(cell);
-    }
-
-
- */
 
 
 
@@ -426,6 +386,8 @@ public class ColisService implements IntColisService {
 
     public static byte[] getQRCodeImage(String text,int width, int height)
             throws WriterException, IOException {
+
+
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
 
@@ -436,39 +398,20 @@ public class ColisService implements IntColisService {
     }
 
 
-    //from chaima this methode is to check !
-
     @Override
-    public ResponseEntity<Colis> updateColis(int id, Colis colis) {
-
-        Optional<Colis> ColisInfo = MyColisRepo.findById(id);
-        if (ColisInfo.isPresent()) {
-            Colis c = ColisInfo.get();
-            c.setRemarque(colis.getRemarque());
-            c.setNum_tel(colis.getNum_tel());
-            c.setNum_tel_2(colis.getNum_tel_2());
-            c.setLongueur(colis.getLongueur());
-            c.setService_colis(colis.getService_colis());
-            c.setNb_piece(colis.getNb_piece());
-            c.setLargeur(colis.getLargeur());
-            c.setHauteur(colis.getHauteur());
-            c.setMode_paiement(colis.getMode_paiement());
-            c.setAnomalieColis(colis.getAnomalieColis());
-            c.setEtat_colis(colis.getEtat_colis());
-            c.setNom_complet_client(colis.getNom_complet_client());
-            c.setCode_colis(colis.getCode_colis());
-            c.setDelegation_client(colis.getDelegation_client());
-            c.setCompteur_anomalie(colis.getCompteur_anomalie());
-            c.setAdresse_client(colis.getAdresse_client());
-            c.setDate_livraison(colis.getDate_livraison());
-            c.setLocalisation_colis(colis.getLocalisation_colis());
-
-            return new ResponseEntity<>(MyColisRepo.save(colis), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+    public Colis updateColis(Colis colis) throws ResourceNotFoundException {
+        MyColisRepo.findById(colis.getIdColis()).orElseThrow(
+                () -> new ResourceNotFoundException("Can't update. colis not found!")
+        );
+        return this.MyColisRepo.save(colis);
     }
+
+
+
+
+
+
+
 
 
 
@@ -488,7 +431,7 @@ public class ColisService implements IntColisService {
 
 
 
-    //Just for testing the pdf
+
 
 
 

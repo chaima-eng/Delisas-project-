@@ -22,6 +22,8 @@ public class Personnel extends User {
     private String permis;
     private String cartegrise;
     private String photo;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Roles> roles = new HashSet<>();
 

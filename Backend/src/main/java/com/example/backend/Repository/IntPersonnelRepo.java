@@ -10,6 +10,7 @@ public interface IntPersonnelRepo extends JpaRepository<Personnel,Integer>
 {
 
     Personnel findByUserName(String userName);
+    Personnel findByEmail(String email);
 
 
 

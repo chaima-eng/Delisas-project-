@@ -8,12 +8,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.ws.Response;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +37,7 @@ public interface IntPersonnelService {
     ResponseEntity<Personnel> getPersoById(int Id) throws ResourceNotFoundException;
 
 
-    ResponseEntity<Personnel> updatePerso(int id,Personnel personnel);
+  //  Personnel updatePerso( Personnel personnel);
 
 
      Map<String, Boolean> deletePerso( int PersoId)
@@ -50,8 +47,9 @@ public interface IntPersonnelService {
     List<Personnel> getAllPersonnel();
 
 
+ Personnel change_password(int id, String newPassword);
 
-
+  Personnel updatePerso(Personnel personnel) throws ResourceNotFoundException;
 
 
 

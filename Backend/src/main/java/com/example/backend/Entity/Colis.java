@@ -2,12 +2,15 @@ package com.example.backend.Entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -46,6 +49,14 @@ public class Colis implements Serializable {
     private AnomalieColis anomalieColis;
     private int compteur_anomalie;
     private String localisation_colis;
+
+    @JsonIgnore
+    @ManyToOne
+    private Hub hub;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Fournisseur> fournisseurs = new HashSet<>();
 
 
 
