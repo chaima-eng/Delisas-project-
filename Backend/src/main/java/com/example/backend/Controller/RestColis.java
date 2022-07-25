@@ -44,6 +44,7 @@ import java.util.Map;
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/Colis")
 @Slf4j
+@CrossOrigin("*")
 public class RestColis {
 
     @Autowired
