@@ -39,8 +39,8 @@ public interface IntPersonnelService {
 
   //  Personnel updatePerso( Personnel personnel);
 
-
-     Map<String, Boolean> deletePerso( int PersoId)
+ public ResponseEntity<Personnel> updatePerso(int id, Personnel personnel);
+ Map<String, Boolean> deletePerso( int PersoId)
             throws ResourceNotFoundException;
 
 

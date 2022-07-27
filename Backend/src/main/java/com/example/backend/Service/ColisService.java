@@ -6,9 +6,6 @@ import com.example.backend.Repository.IntColisRepo;
 import com.example.backend.Repository.IntFournisseurRepo;
 import com.example.backend.Repository.IntHubRepo;
 import com.example.backend.Repository.SocieteRepository;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -22,21 +19,15 @@ import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.google.zxing.Writer;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -49,7 +40,7 @@ import java.util.List;
 public class ColisService implements IntColisService {
 
 
-   // private static final String IMAGE_PATH = "./src/main/resources/Logo.jpg";
+
     private LocalDate localDate = LocalDate.now();
 
     private int width=70;
@@ -74,7 +65,18 @@ public class ColisService implements IntColisService {
     public Colis save(Colis colis, int idhub,int idF) {
         Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
         Hub hub= MyHRepo.findById( idhub).orElse(null);
+
+        //in case of change a new bar code will generate
+        //develop  a new function (generate bar code 2 ) -> 0102 idHub idF ancien colis NV Colis
+        //call this function here
+
+
+
+
+
+
         colis.setDate_livraison(localDate.plusDays(1));
+
         colis.setEtat_colis(Etat_colis.crée);
         if((colis.getLargeur()== 0)&&(colis.getLongueur()== 0)&&(colis.getHauteur()==0))
         {
@@ -82,6 +84,7 @@ public class ColisService implements IntColisService {
             colis.setLongueur(1);
             colis.setHauteur(1);
         }
+
 
         colis.setHub(hub);
         colis.getFournisseurs().add(fournisseur);
@@ -119,11 +122,25 @@ public class ColisService implements IntColisService {
 
 
 
+
+
+
+
+
+
     public String GenerateChiffreCodeBar(@PathVariable("idColis") int idColis)
     {
-        String x = "";
+        String x,y = "";
 
         Colis colis=MyColisRepo.findById(idColis).orElse(null);
+
+        if(colis.getIdColis()!=0)
+        {
+            y="1";
+        }
+
+
+
         if(colis.getEtat_colis().equals(Etat_colis.Livré))
         {
             x="01";
@@ -151,7 +168,7 @@ public class ColisService implements IntColisService {
                 var= String.valueOf(colis.getHub().getIdhub());
                 System.out.println( var);
                 idC= String.valueOf(colis.getIdColis());
-                chiffreCodeBar = x.concat("0").concat(var).concat(idf).concat(idC);
+                chiffreCodeBar = y.concat(x).concat("0").concat(var).concat(idf).concat(idC);
                 System.out.println("valeur final = " + chiffreCodeBar);
             }
         }
@@ -234,7 +251,7 @@ public class ColisService implements IntColisService {
         document.add(p6);
 
         //For spacing
-        Table tab= new Table(1);
+        Table tab= new Table(3);
         tab.setBorderColor(Color.DARK_GRAY);
         document.add(tab);
 
@@ -244,6 +261,13 @@ public class ColisService implements IntColisService {
         document.add(p0);
 
         document.add(tab);
+
+        Table tab2= new Table(3);
+        tab2.setBorderColor(Color.DARK_GRAY);
+        document.add(tab2);
+
+
+
 
         //Table 0
 
@@ -276,8 +300,8 @@ public class ColisService implements IntColisService {
 
         table0.addCell("Governorat : "+F.getGouvernerat() );
         table0.addCell("Téléphone 2 :  "+colis.getNum_tel_2());
-        table0.addCell("Adresse : "+colis.getAdresse_client() );
-        table0.addCell("Téléphone : "+F.getTel() );
+        table0.addCell("Téléphone  :  "+F.getTel());
+        table0.addCell("Adresse  :  "+colis.getAdresse_client());
 
 
         document.add(table0);
@@ -342,8 +366,8 @@ public class ColisService implements IntColisService {
         cell2.setPadding(5);
 
         int tva =13;
-        int PHT= (int) (colis.getQuantite()*0.87);
-
+        float PHT= (int) (colis.getTotal()*0.87);
+        System.out.println("PHT :" + PHT);
         cell2.setPhrase(new Phrase("Désignation", font));
         table2.addCell(cell2);
         cell2.setPhrase(new Phrase("Quantité", font));
@@ -360,6 +384,29 @@ public class ColisService implements IntColisService {
         table2.addCell(String.valueOf(tva).concat("%"));
         table2.addCell(String.valueOf(colis.getTotal()));
         document.add(table2);
+
+
+        //QrCode
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(colis.getCode_a_bar(), BarcodeFormat.QR_CODE, width, height);
+
+        Path path = FileSystems.getDefault().getPath(filePath);
+        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+        System.out.println(path);
+        Image qr = Image.getInstance(path.toString());
+       // qr.setAbsolutePosition(400,550);
+        qr.setAbsolutePosition(400,180);
+        document.add(qr);
+
+
+
+
+
+
+
+
+
 
 
         document.close();
@@ -398,6 +445,11 @@ public class ColisService implements IntColisService {
     }
 
 
+
+
+
+
+
     @Override
     public Colis updateColis(Colis colis) throws ResourceNotFoundException {
         MyColisRepo.findById(colis.getIdColis()).orElseThrow(
@@ -407,14 +459,51 @@ public class ColisService implements IntColisService {
     }
 
 
+    // <<<<------>>> Update with Id <<<----->>>
+
+    @Override
+    public ResponseEntity<Colis> updateColisWithId(int id, Colis colis) {
+
+        Colis c = MyColisRepo.getById(id);
+        c.setHub(colis.getHub());
+        c.setHauteur(colis.getHauteur());
+        c.setLongueur(colis.getLongueur());
+        c.setService_colis(colis.getService_colis());
+        c.setCode_colis(colis.getCode_colis());
+        c.setLargeur(colis.getLargeur());
+        c.setAnomalieColis(colis.getAnomalieColis());
+        c.setEtat_colis(colis.getEtat_colis());
+
+        c.setLocalisation_colis(colis.getLocalisation_colis());
+        c.setCompteur_anomalie(colis.getCompteur_anomalie());
+        c.setAdresse_client(colis.getAdresse_client());
+        c.setDate_livraison(colis.getDate_livraison());
+
+        c.setDelegation_client(colis.getDelegation_client());
+        c.setNom_complet_client(colis.getNom_complet_client());
+        c.setNb_piece(colis.getNb_piece());
+        c.setNum_tel(colis.getNum_tel());
+        c.setNum_tel_2(colis.getNum_tel_2());
+        c.setRemarque(colis.getRemarque());
+        c.setFournisseurs(colis.getFournisseurs());
+        c.setQuantite(colis.getQuantite());
+        c.setTotal(colis.getTotal());
+
+
+        Colis update = MyColisRepo.save(c);
+        return ResponseEntity.ok().body(update);
+
+
+    }
+
+    @Override
+    public String GenerateChiffreCodeBar2() {
 
 
 
 
-
-
-
-
+        return null;
+    }
 
 
     @Override
@@ -426,6 +515,8 @@ public class ColisService implements IntColisService {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
+
 
 
 

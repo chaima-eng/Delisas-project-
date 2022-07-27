@@ -10,6 +10,7 @@ import com.google.zxing.WriterException;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfPTable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -46,8 +47,10 @@ public interface IntColisService {
 
 
 
+     ResponseEntity<Colis> updateColisWithId(int id, Colis colis);
 
 
+     String GenerateChiffreCodeBar2();
 
 
 

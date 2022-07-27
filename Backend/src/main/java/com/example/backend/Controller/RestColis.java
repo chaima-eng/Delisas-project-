@@ -84,6 +84,14 @@ public class RestColis {
     }
 
 
+    @PutMapping("/colis/{id}")
+    public ResponseEntity<Colis> updateColisWIthId(@PathVariable("id") int id,@RequestBody Colis colis)
+    {
+        return Myservice.updateColisWithId(id,colis);
+    }
+
+    
+
     @GetMapping("/AllColis")
     List<Colis> getAll()
     {
@@ -103,7 +111,7 @@ public class RestColis {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=ticket" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-        Myservice.export(response, idF,idS,idcolis,chiffreCodeBar,70,70,QR_CODE_IMAGE_PATH);
+        Myservice.export(response, idF,idS,idcolis,chiffreCodeBar,90,120,QR_CODE_IMAGE_PATH);
 
     }
 

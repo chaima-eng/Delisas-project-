@@ -28,7 +28,7 @@ public class Colis implements Serializable {
     private String nom_complet_client;
     private int num_tel;
     private int num_tel_2;
-    private int total;
+    private float total;
     private int quantite;
 
     private LocalDate date_livraison;

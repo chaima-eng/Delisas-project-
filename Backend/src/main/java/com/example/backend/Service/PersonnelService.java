@@ -129,28 +129,32 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
-    /*
+
 
    @Override
     public ResponseEntity<Personnel> updatePerso(int id, Personnel personnel) {
 
-        Optional<Personnel> Personnelinfo = MyPersonnelRepo.findById(id);
-        if (Personnelinfo.isPresent()) {
-            Personnel perso = Personnelinfo.get();
-            perso.setCartegrise(personnel.getCartegrise());
-            perso.setMatriculevehicule(personnel.getMatriculevehicule());
-            perso.setPermis(personnel.getPermis());
-            perso.setMontant_l(personnel.getMontant_l());
-            perso.setSalaire(personnel.getSalaire());
-            perso.setRole(personnel.getRole());
+        Personnel perso = MyPersonnelRepo.getById(id);
+        perso.setCartegrise(personnel.getCartegrise());
+       perso.setMatriculevehicule(personnel.getMatriculevehicule());
+       perso.setMontant_l(personnel.getMontant_l());
+       perso.setSalaire(personnel.getSalaire());
+       perso.setPhoto(personnel.getPhoto());
+       perso.setRole(personnel.getRole());
+       perso.setPassword(personnel.getPassword());
+       perso.setPermis(personnel.getPermis());
+       perso.setUserName(personnel.getUserName());
+       perso.setEmail(personnel.getEmail());
+       perso.setLastName(personnel.getLastName());
+       perso.setTel(personnel.getTel());
 
-            return new ResponseEntity<>(MyPersonnelRepo.save(personnel), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Personnel update = MyPersonnelRepo.save(perso);
+        return ResponseEntity.ok().body(update);
+
+
     }
 
-     */
+
 
     @Override
     public Map<String, Boolean> deletePerso(int PersoId) throws ResourceNotFoundException {

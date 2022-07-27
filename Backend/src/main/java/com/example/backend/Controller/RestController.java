@@ -105,8 +105,11 @@ public class RestController {
 
 
 
-
-
+    @PutMapping("/personnel/{id}")
+    public ResponseEntity<Personnel> updatePerso(@PathVariable("id") int id,@RequestBody Personnel personnel)
+    {
+        return Myservice.updatePerso(id,personnel);
+    }
 
 
 
