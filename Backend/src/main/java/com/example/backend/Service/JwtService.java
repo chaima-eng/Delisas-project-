@@ -38,18 +38,22 @@ public class JwtService implements UserDetailsService {
 		System.out.print(userName);
 		String userPassword=jwtRequest.getUserpassword();
 		authenticate(userName, userPassword);
-		
-	final	UserDetails userDetails = loadUserByUsername(userName);
-		
+
+		final	UserDetails userDetails = loadUserByUsername(userName);
+
 		String newGeneratedToken=jwtu.generateToken(userDetails);
-		Personnel user = ur.findByUserName(userName);
+		User user = ur.findByUserName(userName);
+		System.out.print(user);
 		String role = "";
-		for (Roles value : user.getRoles()){
-			 role =value.getName();
+		if(user instanceof Personnel){
+			for (Roles value :((Personnel) user).getRoles()){
+				role =value.getName();
+			}
+		}  else  if(user instanceof Fournisseur) {
+			role="Fournisseur";
 		}
-			  
-		
-	
+
+
 		return new JwtResponse(user, newGeneratedToken,role);
 	}
 	

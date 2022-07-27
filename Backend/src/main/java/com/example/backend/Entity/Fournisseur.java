@@ -3,8 +3,8 @@ package com.example.backend.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,16 +14,27 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class Fournisseur extends User {
-    private String nom_societe;
-    private String adresse_societe;
-    private String gouvernerat;
 
-    /*
-    @ManyToMany
+
+    private String nomSociete;
+    private String adresseSociete;
+    private String gouverneratSociete;
+    private String deligationSociete;
+    private String imageSociete;
+    private String gouverneratLivraison;
+    private String deligationLivraison;
+    private int prixLivrasion;
+    private int prixRetour;
+    @Temporal(TemporalType.DATE)
+    private Date dateDebutContrat;
+    @Temporal(TemporalType.DATE)
+
+    private Date dateDebutFin;
+
+
+    @OneToMany
     @JsonIgnore
-    private Set<Colis> colis;
-
-     */
+    private Set<Ticket> tickets;
 
 
 }

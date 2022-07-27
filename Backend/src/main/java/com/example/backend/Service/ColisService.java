@@ -70,6 +70,8 @@ public class ColisService implements IntColisService {
         //develop  a new function (generate bar code 2 ) -> 0102 idHub idF ancien colis NV Colis
         //call this function here
 
+        GenerateChiffreCodeBar2(colis.getIdColis());
+
 
 
 
@@ -293,12 +295,12 @@ public class ColisService implements IntColisService {
         table0.addCell(cell0);
 
 
-        table0.addCell("Nom Societé : "+ F.getNom_societe());
+        table0.addCell("Nom Societé : "+ F.getNomSociete());
         table0.addCell("Nom et Prénom : " +colis.getNom_complet_client());
-        table0.addCell("Adresse : "+F.getAdresse_societe() );
+        table0.addCell("Adresse : "+F.getAdresseSociete() );
         table0.addCell("Téléphone 1 : "+colis.getNum_tel());
 
-        table0.addCell("Governorat : "+F.getGouvernerat() );
+        table0.addCell("Governorat : "+F.getGouverneratLivraison() );
         table0.addCell("Téléphone 2 :  "+colis.getNum_tel_2());
         table0.addCell("Téléphone  :  "+F.getTel());
         table0.addCell("Adresse  :  "+colis.getAdresse_client());
@@ -497,12 +499,22 @@ public class ColisService implements IntColisService {
     }
 
     @Override
-    public String GenerateChiffreCodeBar2() {
+    public String GenerateChiffreCodeBar2(int idAncien) {
+
+        Colis colis=MyColisRepo.findById(idAncien).orElse(null);
+        String ancienId= String.valueOf(idAncien);
+        String NvId = String.valueOf(MyColisRepo.findById(colis.getIdColis()));
+
+        String newBarCode ="";
+        if(colis.getEtat_colis().equals(Etat_colis.échange))
+        {
+
+          newBarCode="0102".concat(ancienId).concat(NvId)  ;
+          System.out.println("new Code Bar : " + newBarCode);
+        }
 
 
-
-
-        return null;
+        return newBarCode;
     }
 
 

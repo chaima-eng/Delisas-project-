@@ -141,7 +141,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
        perso.setSalaire(personnel.getSalaire());
        perso.setPhoto(personnel.getPhoto());
        perso.setRole(personnel.getRole());
-       perso.setPassword(personnel.getPassword());
+     //  perso.setPassword(personnel.getPassword());
        perso.setPermis(personnel.getPermis());
        perso.setUserName(personnel.getUserName());
        perso.setEmail(personnel.getEmail());

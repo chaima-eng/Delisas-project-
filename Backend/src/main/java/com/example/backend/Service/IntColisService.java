@@ -50,7 +50,7 @@ public interface IntColisService {
      ResponseEntity<Colis> updateColisWithId(int id, Colis colis);
 
 
-     String GenerateChiffreCodeBar2();
+     String GenerateChiffreCodeBar2(int idColis);
 
 
 

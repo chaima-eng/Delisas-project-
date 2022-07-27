@@ -56,6 +56,17 @@ public class RestColis {
     private IntColisRepo MyColisRepo;
 
 
+
+
+
+
+    @PostMapping("/save/{idColis}")
+    public String GenerateChiffreCodeBar2(@PathVariable("idColis") int idColis)
+    {
+        return Myservice.GenerateChiffreCodeBar2(idColis);
+    }
+
+
     @PostMapping("/save/{idhub}/{idF}")
     public Colis save(@RequestBody Colis colis,@PathVariable("idhub") int idhub,@PathVariable("idF") int idF)
     {
@@ -90,7 +101,7 @@ public class RestColis {
         return Myservice.updateColisWithId(id,colis);
     }
 
-    
+
 
     @GetMapping("/AllColis")
     List<Colis> getAll()
