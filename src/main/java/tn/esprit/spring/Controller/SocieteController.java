@@ -60,4 +60,6 @@ public class SocieteController {
 	List<Societe> retrieveSociete(){
 	return societeService.retrieveSociete();
 	}
+	
+	
 }
