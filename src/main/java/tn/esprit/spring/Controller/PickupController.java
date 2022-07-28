@@ -28,13 +28,12 @@ public class PickupController {
 	@Autowired
 	IPickupService ps;
 	
+	
 	@PostMapping("/ajouterEtaffecterpickupcolis/{idUser}/{idColis}")
 	@ResponseBody
 	public String ajouterEtaffecterpickupcolis(@RequestBody Pickup pickup, @PathVariable("idUser") int idUser, @RequestParam("idColis") List<Integer> idColis) {
 		return ps.ajouterEtaffecterpickupcolis(pickup,idUser, idColis);
 	}
-	
-	
 	
 	@GetMapping("/retrieve-Pickup")
 	@ResponseBody
@@ -47,47 +46,10 @@ public class PickupController {
 	 List<Colis> listedeColis(@PathVariable("idPickup") int idPickup) {
 		return ps.listedeColis(idPickup);
 	}
-	/*
-	@GetMapping(value ="/Sommepickup/{idPickup}")
-	@ResponseBody
-	public float Sommepickup(@PathVariable("idPickup") int idPickup) 
-	{
-			
-	return ps.Sommepickup(idPickup);
-		    
-	}*/
-	/*
-	@GetMapping(value ="/Listids/{idPickup}")
-	@ResponseBody
-	public List Listids(@PathVariable("idPickup") int idPickup) 
-	{
-			
-	return ps.Listids(idPickup);
-		    
-	}*/
-	@GetMapping(value ="/SommeTotalColis/{idPickup}")
-	@ResponseBody
-	public float SommeTotalColis(@PathVariable("idPickup") int idPickup) 
-	{
-			
-	return ps.SommeTotalColis(idPickup);
-		    
-	}/*
-	@GetMapping(value ="/findByTotale/{idColis}")
-	@ResponseBody
-	public float findByTotale(@PathVariable("idColis") int idColis) 
-	{
-			
-	return ps.findByTotale(idColis);
-		    
-	}*/
 	
-	@PutMapping("/updatepickup/{idPickup}")
-	@ResponseBody
-	public String updatepickup(@RequestBody Pickup pickup,@PathVariable("idPickup") int idPickup) {
+	
 
-		return ps.updatepickup(pickup,idPickup);
-
-	}
+	
+	
 	
 }
