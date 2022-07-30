@@ -44,6 +44,9 @@ public class FournisseurService implements IntFournisseurSer {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    SendMail mail;
+
 
 
 
@@ -81,7 +84,7 @@ public class FournisseurService implements IntFournisseurSer {
         perso.setImageSociete(newFileName);
 
         Fournisseur art = frepo.save(perso);
-
+        mail.traiterMail(perso.getIdUser());
 
 
         if (art != null)

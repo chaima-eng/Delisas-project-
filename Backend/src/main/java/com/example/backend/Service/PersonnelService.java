@@ -46,7 +46,8 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
     PasswordEncoder passwordEncoder;
 
 
-
+    @Autowired
+    SendMail mail;
 
 
 
@@ -90,6 +91,10 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
         perso.getRoles().add(roles);
 
         Personnel art = MyPersonnelRepo.save(perso);
+
+        mail.MailPerso(perso.getIdUser());
+        System.out.println("mail sent with success" +
+                "");
 
 
 

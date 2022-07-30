@@ -6,16 +6,27 @@
   <component name="ChangeListManager">
     <list default="true" id="6bde83ef-6cd7-424d-bbc6-5664e4347f92" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestColis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestColis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Fournisseur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Fournisseur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Colis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Colis.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/FournisseurService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/FournisseurService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PasswordResetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PasswordResetService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/QRCode/QrCode.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/QRCode/QrCode.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/QRCode/QrCode.png" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/QRCode/QrCode.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Filter/CustomAuthorizationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Filter/CustomAuthorizationFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/JwtService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/FournisseurService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/FournisseurService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PasswordResetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PasswordResetService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +139,9 @@
       <workItem from="1658408402942" duration="79000" />
       <workItem from="1658420787817" duration="907000" />
       <workItem from="1658424360913" duration="56754000" />
-      <workItem from="1658757008522" duration="23803000" />
+      <workItem from="1658757008522" duration="29870000" />
+      <workItem from="1659013202083" duration="11623000" />
+      <workItem from="1659113602295" duration="13856000" />
     </task>
     <servers />
   </component>

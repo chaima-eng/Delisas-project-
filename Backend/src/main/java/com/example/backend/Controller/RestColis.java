@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.nio.cs.ext.MacUkraine;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Response;
 import java.awt.image.BufferedImage;
@@ -40,12 +41,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping("/Colis")
 @Slf4j
 @CrossOrigin("*")
 public class RestColis {
+
+
+
 
     @Autowired
     IntColisService Myservice;
@@ -56,6 +65,23 @@ public class RestColis {
     private IntColisRepo MyColisRepo;
 
 
+
+    @GetMapping("/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=colis" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Colis> listColis =Myservice.getAllColis();
+
+        ColisService excelExporter = new ColisService(listColis);
+
+        excelExporter.exportExel(response);
+    }
 
 
 
@@ -132,21 +158,24 @@ public class RestColis {
 
     @GetMapping(value = "/genrateAndDownloadQRCode/{text}/{width}/{height}")
     public void download(
-            @PathVariable("text") String text,
+            @PathVariable("text") String QrCode,
             @PathVariable("width") Integer width,
             @PathVariable("height") Integer height)
             throws Exception {
-        Service.generateQRCodeImage(text,width, height, QR_CODE_IMAGE_PATH);
+        Service.generateQRCodeImage(QrCode,width, height, QR_CODE_IMAGE_PATH);
     }
 
     @GetMapping(value = "/genrateQRCode/{text}/{width}/{height}")
     public ResponseEntity<byte[]> generateQRCode(
-            @PathVariable("text") String  text,
+            @PathVariable("text") String  QrCode,
             @PathVariable("width") Integer width,
             @PathVariable("height") Integer height)
             throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(Service.getQRCodeImage(text,width, height));
+        return ResponseEntity.status(HttpStatus.OK).body(Service.getQRCodeImage(QrCode,width, height));
     }
+
+
+
 
 
 

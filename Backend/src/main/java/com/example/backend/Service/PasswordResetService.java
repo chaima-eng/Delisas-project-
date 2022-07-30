@@ -26,11 +26,11 @@ public class PasswordResetService {
     @Autowired
     IntPersonnelRepo userRepository;
 
-    /*
-    @Autowired
-    MailService mailService;
 
-     */
+    @Autowired
+    EmailSenderService mailService;
+
+
 
     public void createPasswordResetTokenForUser(Personnel user, String token) {
         PasswordResetToken myToken = new PasswordResetToken(token, user);
@@ -67,11 +67,10 @@ public class PasswordResetService {
         }
         String token = UUID.randomUUID().toString();
         createPasswordResetTokenForUser(user, token);
-        String passwordResetLink = "http://localhost:8081/Wellbeignatwork/api/auth/reset-password?token=" + token;
-       // String content = buildEmail(user.getUserName(), passwordResetLink);
-      //  mailService.sendMail(userEmail, "Reset Your Password", content, true);
+        String passwordResetLink = "http://localhost:8081/Delisas/api/auth/reset-password?token=" + token;
+        String content = buildEmail(user.getUserName(), passwordResetLink);
+        mailService.sendSimpleEmail(userEmail, "Reset Your Password", content, false);
     }
-    /*
 
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
@@ -143,5 +142,5 @@ public class PasswordResetService {
     }
 
 
-     */
+
 }

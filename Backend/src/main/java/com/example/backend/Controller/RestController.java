@@ -13,6 +13,7 @@ import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Payload.LoginRequest;
 import com.example.backend.Repository.IntPersonnelRepo;
 import com.example.backend.Service.IntPersonnelService;
+import com.example.backend.Service.SendMail;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -219,10 +220,22 @@ public class RestController {
 
 
 
+    @Autowired
+    private SendMail email;
+
+    @PutMapping("/traiter-mail/{iduser}")
+    @ResponseBody
+    public void traitermail(@PathVariable("iduser")int iduser) {
+        email.traiterMail(iduser);
+    }
 
 
 
-
+    @PutMapping("/mail-perso/{iduser}")
+    @ResponseBody
+    public void MailPers(@PathVariable("iduser")int iduser) {
+        email.MailPerso(iduser);
+    }
 
 
 

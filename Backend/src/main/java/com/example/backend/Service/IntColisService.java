@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Response;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,14 @@ import java.util.Map;
 public interface IntColisService {
 
 
+
+
+
      Colis save(Colis colis,int idhub,int idF);
 
-      ResponseEntity<Colis> getColisyId(int Id)  throws ResourceNotFoundException;
+
+
+     ResponseEntity<Colis> getColisyId(int Id)  throws ResourceNotFoundException;
 
 
     void export(HttpServletResponse response, int

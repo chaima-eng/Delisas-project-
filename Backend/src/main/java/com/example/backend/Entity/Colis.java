@@ -49,7 +49,7 @@ public class Colis implements Serializable {
     private AnomalieColis anomalieColis;
     private int compteur_anomalie;
     private String localisation_colis;
-
+    private float poids;
     @JsonIgnore
     @ManyToOne
     private Hub hub;

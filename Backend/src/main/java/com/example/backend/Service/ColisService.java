@@ -7,24 +7,27 @@ import com.example.backend.Repository.IntFournisseurRepo;
 import com.example.backend.Repository.IntHubRepo;
 import com.example.backend.Repository.SocieteRepository;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.oned.Code128Writer;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.google.zxing.Writer;
 import org.springframework.web.bind.annotation.PathVariable;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
@@ -34,6 +37,8 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
+
+
 
 @Service
 @Slf4j
@@ -61,20 +66,222 @@ public class ColisService implements IntColisService {
 
 
 
+
+    public  ColisService(List<Colis> listColis) {
+        this.listColis = listColis;
+        workbook = new XSSFWorkbook();
+    }
+
+
+
+
+
+    private XSSFWorkbook workbook;
+    private XSSFSheet sheet;
+    private List<Colis> listColis;
+
+
+    private void writeHeaderLine() {
+        sheet = workbook.createSheet("colis");
+
+        org.apache.poi.ss.usermodel.Row row = sheet.createRow(0);
+
+        CellStyle style = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+       // font.setBold(true);
+        font.setFontHeight(12);
+        font.setItalic(true);
+        style.setFont(font);
+
+        createCell(row, 0, "Nom Complet", style);
+        createCell(row, 1, "N Téléphone 1", style);
+        createCell(row, 2, "N Téléphone 2", style);
+        createCell(row, 3, "Adresse", style);
+        createCell(row, 4, "Mode de paiement", style);
+        createCell(row, 5, "Délégation", style);
+        createCell(row, 6, "Longeur", style);
+        createCell(row, 7, "Largeur", style);
+        createCell(row, 8, "Hauteur", style);
+
+
+        createCell(row, 9, "Poids", style);
+
+
+        createCell(row, 10, "Remarque", style);
+        createCell(row, 11, "Cod", style);
+        createCell(row, 12, "Service", style);
+      //  createCell(row, 7, "State", style);
+
+
+    }
+
+    private void createCell(org.apache.poi.ss.usermodel.Row row, int columnCount, Object value, CellStyle style) {
+        sheet.autoSizeColumn(columnCount);
+        org.apache.poi.ss.usermodel.Cell cell = row.createCell(columnCount);
+        if (value instanceof Integer) {
+            cell.setCellValue((Integer) value);
+        } else if (value instanceof Boolean) {
+            cell.setCellValue((Boolean) value);
+        }else if (value instanceof Long) {
+            cell.setCellValue((Long) value);
+        }else if (value instanceof Float) {
+            cell.setCellValue((Float) value);
+        }else if (value instanceof Double) {
+            cell.setCellValue((Double) value);
+        }else {
+            cell.setCellValue((String) value);
+        }
+        cell.setCellStyle(style);
+    }
+
+    private void writeDataLines() {
+        int rowCount = 1;
+
+        CellStyle style = workbook.createCellStyle();
+        XSSFFont font = workbook.createFont();
+        font.setFontHeight(14);
+        style.setFont(font);
+
+        for (Colis colis : listColis) {
+            org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowCount++);
+            int columnCount = 0;
+
+            createCell(row, columnCount++, colis.getNom_complet_client(), style);
+            createCell(row, columnCount++, colis.getNum_tel(), style);
+            createCell(row, columnCount++, colis.getNum_tel_2(), style);
+            createCell(row, columnCount++, colis.getAdresse_client(), style);
+            createCell(row, columnCount++, colis.getMode_paiement(), style);
+            createCell(row, columnCount++, colis.getDelegation_client(), style);
+            createCell(row, columnCount++, colis.getLongueur(), style);
+            createCell(row, columnCount++, colis.getLargeur(), style);
+            createCell(row, columnCount++, colis.getHauteur(), style);
+
+            createCell(row, columnCount++, colis.getPoids(), style);
+
+            createCell(row, columnCount++, colis.getRemarque(), style);
+            createCell(row, columnCount++, colis.getCode_colis(), style);
+            createCell(row, columnCount++, colis.getService_colis(), style);
+
+
+
+
+        }
+    }
+
+
+
+
+    public void exportExel(HttpServletResponse response) throws IOException {
+        writeHeaderLine();
+        writeDataLines();
+
+        ServletOutputStream outputStream = response.getOutputStream();
+        workbook.write(outputStream);
+        workbook.close();
+
+        outputStream.close();
+
+    }
+
+
+
+
+
+
+
+    @Override
+    public String GenerateChiffreCodeBar2(int idAncien) {
+
+        Colis colis=MyColisRepo.findById(idAncien).orElse(null);
+        String ancienId= String.valueOf(idAncien);
+        String idhub= String.valueOf(colis.getHub().getIdhub());
+
+
+
+        String newBarCode ="";
+
+        String idF="";
+
+
+
+        if(colis.getService_colis().equals("échange"))
+        {
+            Colis colis1 =new Colis();
+            colis1.setService_colis("échange");
+            colis1.setNum_tel_2(colis.getNum_tel_2());
+            colis1.setLocalisation_colis(colis.getLocalisation_colis());
+            colis1.setNum_tel(colis.getNum_tel());
+            colis1.setCode_colis(colis.getCode_colis());
+
+            colis1.setAnomalieColis(colis.getAnomalieColis());
+            colis1.setNom_complet_client(colis.getNom_complet_client());
+            colis1.setDesignation_colis(colis.getDesignation_colis());
+
+
+
+            colis1.setHub(colis.getHub());
+
+            for (Fournisseur F:colis.getFournisseurs())
+            {
+                idF= String.valueOf(F.getIdUser());
+                colis1.getFournisseurs().add(F);
+
+            }
+
+
+
+
+
+
+            colis1.setRemarque(colis.getRemarque());
+            colis1.setDate_livraison(colis.getDate_livraison());
+            colis1.setCompteur_anomalie(colis.getCompteur_anomalie());
+            colis1.setAdresse_client(colis.getAdresse_client());
+
+            MyColisRepo.save(colis1);
+            String NvIdColis= String.valueOf(colis1.getIdColis());
+            newBarCode="0102".concat(idhub).concat(idF).concat(ancienId).concat(NvIdColis);
+
+            System.out.println("NV Id Colis : " + NvIdColis);
+            System.out.println("new Bar code : " + newBarCode);
+          //  colis1.setCode_a_bar(newBarCode);
+
+            saveBarcode2(colis1.getIdColis(),newBarCode);
+
+            System.out.println("NV Id Colis 2 : " + NvIdColis);
+
+        }
+
+
+
+
+        return newBarCode;
+    }
+
+
+
+
+
+    public void saveBarcode2(int idColis1,String newBarcode)
+    {
+        Colis colis = MyColisRepo.findById(idColis1).orElse(null);
+        colis.setCode_a_bar(newBarcode);
+        MyColisRepo.save(colis);
+
+    }
+
+
+
+
+
+
+
+
+
     @Override
     public Colis save(Colis colis, int idhub,int idF) {
         Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
         Hub hub= MyHRepo.findById( idhub).orElse(null);
-
-        //in case of change a new bar code will generate
-        //develop  a new function (generate bar code 2 ) -> 0102 idHub idF ancien colis NV Colis
-        //call this function here
-
-        GenerateChiffreCodeBar2(colis.getIdColis());
-
-
-
-
 
 
         colis.setDate_livraison(localDate.plusDays(1));
@@ -90,6 +297,18 @@ public class ColisService implements IntColisService {
 
         colis.setHub(hub);
         colis.getFournisseurs().add(fournisseur);
+
+
+
+        //in case of change a new bar code will generate
+        //develop  a new function (generate bar code 2 ) --> 0102 idHub idF ancien colis NV Colis
+        //call this function here
+
+
+
+
+
+
 
         return MyColisRepo.save(colis);
     }
@@ -111,17 +330,6 @@ public class ColisService implements IntColisService {
         return MyColisRepo
                 .findAll();
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -170,6 +378,7 @@ public class ColisService implements IntColisService {
                 var= String.valueOf(colis.getHub().getIdhub());
                 System.out.println( var);
                 idC= String.valueOf(colis.getIdColis());
+
                 chiffreCodeBar = y.concat(x).concat("0").concat(var).concat(idf).concat(idC);
                 System.out.println("valeur final = " + chiffreCodeBar);
             }
@@ -498,24 +707,17 @@ public class ColisService implements IntColisService {
 
     }
 
-    @Override
-    public String GenerateChiffreCodeBar2(int idAncien) {
-
-        Colis colis=MyColisRepo.findById(idAncien).orElse(null);
-        String ancienId= String.valueOf(idAncien);
-        String NvId = String.valueOf(MyColisRepo.findById(colis.getIdColis()));
-
-        String newBarCode ="";
-        if(colis.getEtat_colis().equals(Etat_colis.échange))
-        {
-
-          newBarCode="0102".concat(ancienId).concat(NvId)  ;
-          System.out.println("new Code Bar : " + newBarCode);
-        }
 
 
-        return newBarCode;
-    }
+
+
+
+
+
+
+
+
+
 
 
     @Override
@@ -527,6 +729,9 @@ public class ColisService implements IntColisService {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
+
+
 
 
 

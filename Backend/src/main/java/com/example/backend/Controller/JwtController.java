@@ -75,13 +75,13 @@ public class JwtController {
 	}
 
 	@PostMapping("/forget-password")
-	public ResponseEntity<?> resetPassword(@RequestParam("email") String email) {
+	public ResponseEntity<?> ForgetPass(@RequestParam("email") String email) {
 		passwordResetService.forgetPassword(email);
 		return ResponseEntity.ok("reset password sent successfully");
 	}
 
 	@PostMapping("/reset-password")
-	public ResponseEntity<?> savePassword(@RequestBody PasswordReset passwordDto, @RequestParam String token)
+	public ResponseEntity<?> changePassword(@RequestBody PasswordReset passwordDto, @RequestParam String token)
 	{
 		String result = passwordResetService.validatePasswordResetToken(token);
 		if (result != null) {
