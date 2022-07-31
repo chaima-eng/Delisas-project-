@@ -37,7 +37,7 @@ public class Colis implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idColis;
-    private String code_a_bar;
+    private String codeabar;
     private int qrCode;
     private String nom_complet_client;
     private int num_tel;
@@ -76,6 +76,9 @@ public class Colis implements Serializable {
     @ManyToMany( cascade = CascadeType.ALL)
     private Set<Pickup> pickups;
 	
+    @JsonIgnore
+    @ManyToMany( cascade = CascadeType.ALL)
+    private Set<Runsheet> runsheets;
     
 
 

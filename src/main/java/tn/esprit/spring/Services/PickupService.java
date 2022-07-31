@@ -34,10 +34,9 @@ public class PickupService implements IPickupService{
 	
 		@Override
 		public String ajouterEtaffecterpickupcolis(Pickup pickup, int idUser, List<Integer> idColis) {
-			//Personnel user2 = userRepository.findByUsername((String) username).orElse(null);
+			
 			List<Colis> colis =cr.findAllById(idColis);
 			Personnel p = plr.findById((int) idUser).orElse(null);
-			   //pickup.setPrix_total(this.SommeTotal);
 			if(p.getRole()==Role.Livreur){
 				for (Integer id:idColis){
 					pr.save(pickup);
