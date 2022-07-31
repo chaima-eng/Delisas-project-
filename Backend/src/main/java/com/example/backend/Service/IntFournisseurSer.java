@@ -28,7 +28,7 @@ public interface IntFournisseurSer {
 
     ResponseEntity<Fournisseur> getfournisseurById(int Id) throws ResourceNotFoundException;
 
-    ResponseEntity<Fournisseur> updateFournisseur(int id, Fournisseur fourni);
+
 
 
 

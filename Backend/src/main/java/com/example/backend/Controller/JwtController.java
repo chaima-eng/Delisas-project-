@@ -5,32 +5,19 @@ import com.example.backend.Entity.JwtRequest;
 import com.example.backend.Entity.JwtResponse;
 import com.example.backend.Entity.PasswordReset;
 import com.example.backend.Entity.Personnel;
-import com.example.backend.Payload.LoginRequest;
-import com.example.backend.Payload.MessageResponse;
-import com.example.backend.Payload.SignupRequest;
 import com.example.backend.Repository.IntPersonnelRepo;
 import com.example.backend.Repository.PasswordTokenRepository;
 import com.example.backend.Service.IntPersonnelService;
 import com.example.backend.Service.JwtService;
 import com.example.backend.Service.PasswordResetService;
 import com.example.backend.config.JwtUtil;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Date;
 
 
 @RestController

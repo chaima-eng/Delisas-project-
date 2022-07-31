@@ -129,7 +129,8 @@ public class FournisseurService implements IntFournisseurSer {
     }
 
     @Override
-    public ResponseEntity<Fournisseur> updateFournisseur(int id, Fournisseur fourni) {
+    public ResponseEntity<Fournisseur> updatefournisseur(int id, Fournisseur fourni) {
+        // TODO Auto-generated method stub
         System.out.println("Update Personnel with ID = " + id + "...");
         Optional<Fournisseur> Personnelinfo = frepo.findById(id);
         if (Personnelinfo.isPresent()) {
@@ -141,16 +142,10 @@ public class FournisseurService implements IntFournisseurSer {
             perso.setGouverneratSociete(fourni.getGouverneratSociete());
             perso.setPrixLivrasion(fourni.getPrixLivrasion());
 
-            return new ResponseEntity<>(frepo.save(fourni), HttpStatus.OK);
+            return new ResponseEntity<>(frepo.save(perso), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
-
-    @Override
-    public ResponseEntity<Fournisseur> updatefournisseur(int id, Fournisseur fourni) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 

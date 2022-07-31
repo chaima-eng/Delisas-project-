@@ -136,6 +136,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
+    //update image !
    @Override
     public ResponseEntity<Personnel> updatePerso(int id, Personnel personnel) {
 

@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,7 +66,9 @@ public class JwtService implements UserDetailsService {
 					user.getUserName(),
 					user.getPassword(), 
 					getAuthorities(user));
-		}else{
+		}
+		else
+		{
 			throw new UsernameNotFoundException("user name is not valid");
 		}
 		
