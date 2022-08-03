@@ -271,73 +271,6 @@ public class ColisService implements IntColisService {
     }
 
 
-
-
-
-
-
-
-
-    @Override
-    public Colis save(Colis colis, int idhub,int idF) {
-        Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
-        Hub hub= MyHRepo.findById( idhub).orElse(null);
-
-
-        colis.setDate_livraison(localDate.plusDays(1));
-
-        colis.setEtat_colis(Etat_colis.crée);
-        if((colis.getLargeur()== 0)&&(colis.getLongueur()== 0)&&(colis.getHauteur()==0))
-        {
-            colis.setLargeur(1);
-            colis.setLongueur(1);
-            colis.setHauteur(1);
-        }
-
-
-        colis.setHub(hub);
-        colis.getFournisseurs().add(fournisseur);
-
-
-
-        //in case of change a new bar code will generate
-        //develop  a new function (generate bar code 2 ) --> 0102 idHub idF ancien colis NV Colis
-        //call this function here
-
-
-
-
-
-
-
-        return MyColisRepo.save(colis);
-    }
-    @Override
-    public ResponseEntity<Colis> getColisyId(int Id)
-            throws ResourceNotFoundException {
-        Colis colis = MyColisRepo.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("colis not found for this id :: " + Id));
-        return ResponseEntity.ok().body(colis);
-    }
-
-    @Override
-    public void export(HttpServletResponse response, int idcolis, String text, String filePath, int width, int height) throws DocumentException, IOException, WriterException {
-
-    }
-
-    @Override
-    public List<Colis> getAllColis() {
-        return MyColisRepo
-                .findAll();
-    }
-
-
-
-
-
-
-
-
     public String GenerateChiffreCodeBar(@PathVariable("idColis") int idColis)
     {
         String x,y = "";
@@ -390,6 +323,68 @@ public class ColisService implements IntColisService {
 
 
     }
+
+
+
+
+
+
+    @Override
+    public void save(Colis colis, int idhub,int idF) {
+        Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
+        Hub hub= MyHRepo.findById( idhub).orElse(null);
+
+
+        colis.setDate_livraison(localDate.plusDays(1));
+
+        colis.setEtat_colis(Etat_colis.crée);
+        if((colis.getLargeur()== 0)&&(colis.getLongueur()== 0)&&(colis.getHauteur()==0))
+        {
+            colis.setLargeur(1);
+            colis.setLongueur(1);
+            colis.setHauteur(1);
+        }
+
+
+     //colis.setCode_a_bar(GenerateChiffreCodeBar(colis.getIdColis()));
+
+        colis.setHub(hub);
+        colis.getFournisseurs().add(fournisseur);
+
+
+        MyColisRepo.save(colis);
+
+
+
+
+    }
+    @Override
+    public ResponseEntity<Colis> getColisyId(int Id)
+            throws ResourceNotFoundException {
+        Colis colis = MyColisRepo.findById(Id)
+                .orElseThrow(() -> new ResourceNotFoundException("colis not found for this id :: " + Id));
+        return ResponseEntity.ok().body(colis);
+    }
+
+    @Override
+    public void export(HttpServletResponse response, int idcolis, String text, String filePath, int width, int height) throws DocumentException, IOException, WriterException {
+
+    }
+
+    @Override
+    public List<Colis> getAllColis() {
+        return MyColisRepo
+                .findAll();
+    }
+
+
+
+
+
+
+
+
+
 
 
     @Override

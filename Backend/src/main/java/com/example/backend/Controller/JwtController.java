@@ -1,11 +1,7 @@
 package com.example.backend.Controller;
 
 
-import com.example.backend.Entity.JwtRequest;
-import com.example.backend.Entity.JwtResponse;
-import com.example.backend.Entity.PasswordReset;
-import com.example.backend.Entity.Personnel;
-import com.example.backend.Repository.IntPersonnelRepo;
+import com.example.backend.Entity.*;
 import com.example.backend.Repository.PasswordTokenRepository;
 import com.example.backend.Service.IntPersonnelService;
 import com.example.backend.Service.JwtService;
@@ -31,8 +27,7 @@ public class JwtController {
 	private static final int TOKEN_VALIDITY = 3600*5;
 
 
-	@Autowired
-	private IntPersonnelRepo PersonnelRepo;
+
 
 
 	@Autowired
@@ -77,7 +72,7 @@ public class JwtController {
 					.body("Error Token is : " + result);
 		}
 
-		Personnel user = (Personnel) passwordTokenRepository.findByToken(token).getUser();
+		User user =  passwordTokenRepository.findByToken(token).getUser();
 		if (user.getEmail() != null) {
 			passwordResetService.changeUserPassword(user, passwordDto.getNewPassword());
 			passwordTokenRepository.delete(passwordTokenRepository.findByToken(token));

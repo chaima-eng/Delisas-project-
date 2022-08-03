@@ -94,9 +94,9 @@ public class RestColis {
 
 
     @PostMapping("/save/{idhub}/{idF}")
-    public Colis save(@RequestBody Colis colis,@PathVariable("idhub") int idhub,@PathVariable("idF") int idF)
+    public void save(@RequestBody Colis colis,@PathVariable("idhub") int idhub,@PathVariable("idF") int idF)
     {
-        return Myservice.save(colis,idhub,idF);
+        Myservice.save(colis,idhub,idF);
     }
     @GetMapping("/getById/{id}")
     public ResponseEntity<Colis> getColisByID(@PathVariable(value = "id") int Id)

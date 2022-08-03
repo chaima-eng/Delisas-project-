@@ -4,8 +4,7 @@ package com.example.backend.Entity;
 
 public class PasswordReset {
 
-
-         private String newPassword;
+    private String newPassword;
 
     public String getNewPassword() {
         return newPassword;

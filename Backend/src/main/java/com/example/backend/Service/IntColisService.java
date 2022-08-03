@@ -27,7 +27,7 @@ public interface IntColisService {
 
 
 
-     Colis save(Colis colis,int idhub,int idF);
+     void save(Colis colis,int idhub,int idF);
 
 
 

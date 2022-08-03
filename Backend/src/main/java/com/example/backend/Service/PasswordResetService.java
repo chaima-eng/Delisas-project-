@@ -4,7 +4,9 @@ package com.example.backend.Service;
 
 import com.example.backend.Entity.PasswordResetToken;
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.User;
 import com.example.backend.Repository.IntPersonnelRepo;
+import com.example.backend.Repository.IntUserRepo;
 import com.example.backend.Repository.PasswordTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,11 +30,14 @@ public class PasswordResetService {
 
 
     @Autowired
+    IntUserRepo repo;
+
+    @Autowired
     EmailSenderService mailService;
 
 
 
-    public void createPasswordResetTokenForUser(Personnel user, String token) {
+    public void createPasswordResetTokenForUser(com.example.backend.Entity.User user, String token) {
         PasswordResetToken myToken = new PasswordResetToken(token, user);
         passwordTokenRepository.save(myToken);
     }
@@ -55,13 +60,14 @@ public class PasswordResetService {
     }
 
 
-    public void changeUserPassword(Personnel user, String password) {
+    public void changeUserPassword(User user, String password) {
         user.setPassword(encoder.encode(password));
-        userRepository.save(user);
+        repo.save(user);
     }
 
     public void forgetPassword(String userEmail) {
-        Personnel user = userRepository.findByEmail(userEmail);
+        User user = repo.findByEmail(userEmail);
+
         if (user == null) {
             throw new UsernameNotFoundException("Email not found");
         }

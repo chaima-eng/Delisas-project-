@@ -2,7 +2,9 @@ package com.example.backend.Service;
 
 
 import com.example.backend.Entity.*;
+import com.example.backend.Repository.IntFournisseurRepo;
 import com.example.backend.Repository.IntPersonnelRepo;
+import com.example.backend.Repository.IntUserRepo;
 import com.example.backend.config.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -22,8 +24,10 @@ import java.util.Set;
 @Service
 public class JwtService implements UserDetailsService {
 
+
+
 	@Autowired
-	private IntPersonnelRepo ur;
+	private IntUserRepo ur;
 	
 	@Autowired
 	private JwtUtil jwtu;
@@ -42,12 +46,15 @@ public class JwtService implements UserDetailsService {
 
 		String newGeneratedToken=jwtu.generateToken(userDetails);
 		User user = ur.findByUserName(userName);
+
 		System.out.print(user);
 		String role = "";
 		if(user instanceof Personnel){
-			for (Roles value :((Personnel) user).getRoles()){
-				role =value.getName();
-			}
+
+
+			role=((Personnel) user).getRole().name();
+
+
 		}  else  if(user instanceof Fournisseur) {
 			role="Fournisseur";
 		}
