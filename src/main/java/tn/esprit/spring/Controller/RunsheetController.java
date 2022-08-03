@@ -63,5 +63,9 @@ public class RunsheetController {
 		return rs.retrieveColis(codeabar);
 	}
 	
-	
+	@GetMapping("/getnbrColis/{idRunsheet}")
+	@ResponseBody
+	 int getnbrColis(@PathVariable(name="idRunsheet")int idRunsheet) {
+		return rs.getnbrColis(idRunsheet);
+	}
 }

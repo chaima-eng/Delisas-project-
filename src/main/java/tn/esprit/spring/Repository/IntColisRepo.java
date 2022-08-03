@@ -42,8 +42,8 @@ public interface IntColisRepo  extends JpaRepository<Colis,Integer> {
 	//@Query("SELECT count(c) FROM Colis c INNER JOIN Runsheet r ON c.idColis = r.idRunsheet")  
 	//@Query("select count(coliss_id_colis) from colis_runsheets where runsheets_id_runsheet = :idRunsheet")
 
-	//@Query("select count(c) from colis_runsheets c where c.runsheets_id_runsheet=:idRunsheet")
-	//int getnbrColis(@Param ("idRunsheet") int idRunsheet);
+	@Query(value="select count(coliss_id_colis) from colis_runsheets where runsheets_id_runsheet = :idRunsheet",nativeQuery=true) 
+	int getnbrColis(@Param ("idRunsheet") int idRunsheet);
 
 	
 }

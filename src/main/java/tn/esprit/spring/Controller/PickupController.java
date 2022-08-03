@@ -41,6 +41,12 @@ public class PickupController {
 	return ps.retrievePickup();
 	}
 	
+	@GetMapping("/retrieve-Colis")
+	@ResponseBody
+	List<Colis> retrieveColis(){
+	return ps.retrieveColis();
+	}
+	
 	@GetMapping("/AfficherColis/{idPickup}")
 	@ResponseBody
 	 List<Colis> listedeColis(@PathVariable("idPickup") int idPickup) {

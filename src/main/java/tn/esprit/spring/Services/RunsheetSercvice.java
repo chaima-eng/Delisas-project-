@@ -4,18 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.Entity.Colis;
 import tn.esprit.spring.Entity.Etat_debrief;
+import tn.esprit.spring.Entity.Fournisseur;
 import tn.esprit.spring.Entity.Personnel;
 import tn.esprit.spring.Entity.Runsheet;
 import tn.esprit.spring.Entity.Societe;
 import tn.esprit.spring.Entity.User;
 import tn.esprit.spring.Repository.IntColisRepo;
+import tn.esprit.spring.Repository.IntFournisseurRepo;
 import tn.esprit.spring.Repository.IntPersonnelRepo;
 import tn.esprit.spring.Repository.RunsheetRepository;
+import tn.esprit.spring.Repository.SocieteRepository;
+
 
 @Service
 public class RunsheetSercvice implements IRunsheetService {
@@ -25,10 +32,17 @@ public class RunsheetSercvice implements IRunsheetService {
 	IntColisRepo cr;
 	@Autowired
 	IntPersonnelRepo pr;
+	@Autowired
+    private SocieteRepository MysRepo;
+    @Autowired
+    private IntFournisseurRepo MyFRepo;
 	float SommeTotal;
+	
+
+	    
 	@Override
 	public String ajouterEtaffectercRunsheet(Runsheet r, List<String> codeabar, int idUser) {
-		
+	
 		Personnel p = pr.findById((int) idUser).orElse(null);
 		for (String codeabar1:codeabar){
 			rr.save(r);
@@ -185,9 +199,10 @@ public class RunsheetSercvice implements IRunsheetService {
 	
 	@Override
 	public int getnbrColis(int idRunsheet) {
-	//	return cr.getnbrColis(idRunsheet);
-		return 0;
+		return cr.getnbrColis(idRunsheet);
+	
 	}
+
 
 }
 

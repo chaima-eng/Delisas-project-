@@ -42,4 +42,6 @@ public interface IPickupService {
 
 	String updatepickup(Pickup pickup, int idPickup);
 
+	List<Colis> retrieveColis();
+
 }

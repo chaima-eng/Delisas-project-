@@ -115,6 +115,12 @@ public class PickupService implements IPickupService{
 		public float findByTotale(int idColis) {
 
 			return cr.findByTotale(idColis);}
+		
+		
+		@Override
+		public List<Colis> retrieveColis() {
+			return (List<Colis>) cr.findAll();
+		}
 
 		
 
