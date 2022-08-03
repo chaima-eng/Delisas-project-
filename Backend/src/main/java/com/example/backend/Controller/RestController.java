@@ -175,11 +175,11 @@ public class RestController {
     }
 
     @PostMapping("/personnel/{idrole}")
-    public ResponseEntity<Response>  addPersonnel (@RequestPart("file") MultipartFile file,
+    public ResponseEntity<Response>  addPersonnel (@RequestPart("file") MultipartFile file,@RequestPart("file2") MultipartFile file2,@RequestPart("file3") MultipartFile file3,
                                                    @RequestParam("personnel") String personnel,@PathVariable("idrole") int idrole) throws JsonParseException, JsonMappingException, Exception
     {
 
-        return Myservice.addPersonnel(file,personnel,idrole);
+        return Myservice.addPersonnel(file,file2,file3,personnel,idrole);
     }
 
 

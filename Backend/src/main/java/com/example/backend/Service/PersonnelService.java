@@ -53,7 +53,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
     @Override
-    public ResponseEntity<Response> addPersonnel(MultipartFile file, String personnel,int idroles) throws JsonParseException, JsonMappingException, Exception
+    public ResponseEntity<Response> addPersonnel(MultipartFile file,MultipartFile file2,MultipartFile file3, String personnel,int idroles) throws JsonParseException, JsonMappingException, Exception
     {
 
         System.out.println("Ok .............");
@@ -77,6 +77,31 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
         }
 
 
+        String filename2 = file2.getOriginalFilename();
+        String newFileName2 = FilenameUtils.getBaseName(filename2)+"."+FilenameUtils.getExtension(filename2);
+        File serverFile2 = new File (context.getRealPath("/Images/"+File.separator+newFileName2));
+        try
+        {
+            System.out.println("Image");
+            FileUtils.writeByteArrayToFile(serverFile2,file2.getBytes());
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
+        String filename3 = file3.getOriginalFilename();
+        String newFileName3 = FilenameUtils.getBaseName(filename3)+"."+FilenameUtils.getExtension(filename3);
+        File serverFile3 = new File (context.getRealPath("/Images/"+File.separator+newFileName3));
+        try
+        {
+            System.out.println("Image");
+            FileUtils.writeByteArrayToFile(serverFile3,file3.getBytes());
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
 
 
         String pass = perso.getPassword();
@@ -84,7 +109,8 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
         perso.setPassword(passwordEncoder.encode(DefaultPasword));
         perso.setPhoto(newFileName);
-
+        perso.setPermis(filename2);
+        perso.setCartegrise(filename3);
         Roles roles= MyRolesRepo.findById( idroles).orElse(null);
         roles.setName(roles.getName());
         //roles.getPersonnels().add(perso);
@@ -147,7 +173,6 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
        perso.setSalaire(personnel.getSalaire());
        perso.setPhoto(personnel.getPhoto());
        perso.setRole(personnel.getRole());
-     //  perso.setPassword(personnel.getPassword());
        perso.setPermis(personnel.getPermis());
        perso.setUserName(personnel.getUserName());
        perso.setEmail(personnel.getEmail());

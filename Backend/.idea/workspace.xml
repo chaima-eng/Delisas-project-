@@ -6,17 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6bde83ef-6cd7-424d-bbc6-5664e4347f92" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/PasswordReset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/PasswordReset.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/PasswordResetToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/PasswordResetToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntFournisseurRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntFournisseurRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntColisRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Repository/IntColisRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PasswordResetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PasswordResetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntPersonnelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntPersonnelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/JwtService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PasswordResetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PasswordResetService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntColisService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +133,8 @@
       <workItem from="1659113602295" duration="13856000" />
       <workItem from="1659201674758" duration="4413000" />
       <workItem from="1659290295841" duration="1956000" />
-      <workItem from="1659459828071" duration="7166000" />
+      <workItem from="1659459828071" duration="10726000" />
+      <workItem from="1659551658541" duration="5473000" />
     </task>
     <servers />
   </component>

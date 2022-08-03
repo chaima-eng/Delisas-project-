@@ -95,21 +95,20 @@ public class ColisService implements IntColisService {
 
         createCell(row, 0, "Nom Complet", style);
         createCell(row, 1, "N Téléphone 1", style);
-        createCell(row, 2, "N Téléphone 2", style);
-        createCell(row, 3, "Adresse", style);
-        createCell(row, 4, "Mode de paiement", style);
-        createCell(row, 5, "Délégation", style);
-        createCell(row, 6, "Longeur", style);
-        createCell(row, 7, "Largeur", style);
-        createCell(row, 8, "Hauteur", style);
+        createCell(row, 2, "Adresse", style);
+        createCell(row, 3, "Mode de paiement", style);
+        createCell(row, 4, "Délégation", style);
+        createCell(row, 5, "Longeur", style);
+        createCell(row, 6, "Largeur", style);
+        createCell(row, 7, "Hauteur", style);
 
 
-        createCell(row, 9, "Poids", style);
+        createCell(row, 8, "Poids", style);
 
 
-        createCell(row, 10, "Remarque", style);
-        createCell(row, 11, "Cod", style);
-        createCell(row, 12, "Service", style);
+        createCell(row, 9, "Remarque", style);
+        createCell(row, 10, "Cod", style);
+        createCell(row, 11, "Service", style);
       //  createCell(row, 7, "State", style);
 
 
@@ -148,7 +147,6 @@ public class ColisService implements IntColisService {
 
             createCell(row, columnCount++, colis.getNom_complet_client(), style);
             createCell(row, columnCount++, colis.getNum_tel(), style);
-            createCell(row, columnCount++, colis.getNum_tel_2(), style);
             createCell(row, columnCount++, colis.getAdresse_client(), style);
             createCell(row, columnCount++, colis.getMode_paiement(), style);
             createCell(row, columnCount++, colis.getDelegation_client(), style);
@@ -271,6 +269,18 @@ public class ColisService implements IntColisService {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     public String GenerateChiffreCodeBar(@PathVariable("idColis") int idColis)
     {
         String x,y = "";
@@ -346,18 +356,24 @@ public class ColisService implements IntColisService {
         }
 
 
-     //colis.setCode_a_bar(GenerateChiffreCodeBar(colis.getIdColis()));
+
 
         colis.setHub(hub);
         colis.getFournisseurs().add(fournisseur);
 
 
-        MyColisRepo.save(colis);
 
+
+        MyColisRepo.save(colis);
+        colis.setCode_a_bar(GenerateChiffreCodeBar(colis.getIdColis()));
 
 
 
     }
+
+
+
+
     @Override
     public ResponseEntity<Colis> getColisyId(int Id)
             throws ResourceNotFoundException {
@@ -376,15 +392,6 @@ public class ColisService implements IntColisService {
         return MyColisRepo
                 .findAll();
     }
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -665,7 +672,7 @@ public class ColisService implements IntColisService {
     }
 
 
-    // <<<<------>>> Update with Id <<<----->>>
+
 
     @Override
     public ResponseEntity<Colis> updateColisWithId(int id, Colis colis) {

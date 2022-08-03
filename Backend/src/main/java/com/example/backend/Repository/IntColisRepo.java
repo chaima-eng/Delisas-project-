@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IntColisRepo  extends JpaRepository<Colis,Integer> {
 
+
+
+
+
+
 }
