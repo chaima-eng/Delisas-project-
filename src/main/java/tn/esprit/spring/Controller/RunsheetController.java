@@ -1,6 +1,7 @@
 package tn.esprit.spring.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.websocket.server.PathParam;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.Entity.Colis;
 import tn.esprit.spring.Entity.Pickup;
 import tn.esprit.spring.Entity.Runsheet;
 import tn.esprit.spring.Entity.Societe;
@@ -53,5 +55,17 @@ public class RunsheetController {
 	@DeleteMapping("/delete-Runsheet/{idRunsheet}")
 	void deleteSociete(@PathVariable(name="idRunsheet")int idRunsheet){
 		rs.deleteRunsheet(idRunsheet);
+	}
+	
+	@GetMapping("/retrieveColis/{codeabar}")
+	@ResponseBody
+	 Colis retrieveColis(@PathVariable(name="codeabar")String codeabar) {
+		return rs.retrieveColis(codeabar);
+	}
+	
+	@GetMapping("/getnbrColis/{idRunsheet}")
+	@ResponseBody
+	 int getnbrColis(@PathVariable(name="idRunsheet")int idRunsheet) {
+		return rs.getnbrColis(idRunsheet);
 	}
 }

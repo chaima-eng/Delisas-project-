@@ -2,6 +2,7 @@ package tn.esprit.spring.Services;
 
 import java.util.List;
 
+import tn.esprit.spring.Entity.Colis;
 import tn.esprit.spring.Entity.Runsheet;
 
 public interface IRunsheetService {
@@ -19,5 +20,9 @@ public interface IRunsheetService {
 	void deleteRunsheet(int idRunsheet);
 
 	List<Runsheet> retrieveRunsheet();
+
+	Colis retrieveColis(String codeabar);
+
+	int getnbrColis(int idRunsheet);
 
 }

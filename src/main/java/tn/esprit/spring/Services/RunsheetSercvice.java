@@ -2,6 +2,7 @@ package tn.esprit.spring.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -175,6 +176,17 @@ public class RunsheetSercvice implements IRunsheetService {
 	@Override
 	public List<Runsheet> retrieveRunsheet() {
 		return (List<Runsheet>) rr.findAll();
+	}
+	
+	@Override
+	public Colis retrieveColis(String codeabar) {
+		return cr.findByCodeabar(codeabar);
+	}
+	
+	@Override
+	public int getnbrColis(int idRunsheet) {
+	//	return cr.getnbrColis(idRunsheet);
+		return 0;
 	}
 
 }
