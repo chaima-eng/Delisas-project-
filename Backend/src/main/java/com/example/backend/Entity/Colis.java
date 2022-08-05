@@ -40,6 +40,7 @@ public class Colis implements Serializable {
     private int hauteur;
     private String mode_paiement;
     private String service_colis;
+
     private int code_colis;
     private String designation_colis;
     private String remarque;

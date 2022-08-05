@@ -17,11 +17,12 @@ import com.lowagie.text.Image;
 import com.lowagie.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.DataValidation;
+import org.apache.poi.ss.usermodel.DataValidationConstraint;
+import org.apache.poi.ss.usermodel.DataValidationHelper;
+import org.apache.poi.xssf.usermodel.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -84,32 +85,32 @@ public class ColisService implements IntColisService {
     private void writeHeaderLine() {
         sheet = workbook.createSheet("colis");
 
+
+
+
         org.apache.poi.ss.usermodel.Row row = sheet.createRow(0);
 
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
-       // font.setBold(true);
         font.setFontHeight(12);
         font.setItalic(true);
+        font.setColor(new XSSFColor(Color.BLUE));
+
         style.setFont(font);
 
-        createCell(row, 0, "Nom Complet", style);
-        createCell(row, 1, "N Téléphone 1", style);
+        createCell(row, 0, "Nom ", style);
+        createCell(row, 1,"Service" , style);//echange , livraison
         createCell(row, 2, "Adresse", style);
-        createCell(row, 3, "Mode de paiement", style);
-        createCell(row, 4, "Délégation", style);
+        createCell(row, 3, "Poids", style);
+        createCell(row, 4, "COD", style);
         createCell(row, 5, "Longeur", style);
         createCell(row, 6, "Largeur", style);
         createCell(row, 7, "Hauteur", style);
+        createCell(row, 9, "Délégation", style);
+        createCell(row, 11, "Remarque", style);
+        createCell(row, 13, "Téléphone", style);
+        createCell(row, 15, "paiement", style);//cache ,chéque
 
-
-        createCell(row, 8, "Poids", style);
-
-
-        createCell(row, 9, "Remarque", style);
-        createCell(row, 10, "Cod", style);
-        createCell(row, 11, "Service", style);
-      //  createCell(row, 7, "State", style);
 
 
     }
@@ -133,6 +134,9 @@ public class ColisService implements IntColisService {
         cell.setCellStyle(style);
     }
 
+
+
+
     private void writeDataLines() {
         int rowCount = 1;
 
@@ -141,30 +145,67 @@ public class ColisService implements IntColisService {
         font.setFontHeight(14);
         style.setFont(font);
 
+        //LA LISTE D2ROULANTE NE MARCHE PAS !
+        //Merci de la vérifier
+        DataValidationHelper validationHelper = null;
+        DataValidationConstraint constraint = null;
+
+        DataValidation dataValidation = null;
+
+
+        validationHelper=new XSSFDataValidationHelper(sheet);
+
+
+        constraint =validationHelper.createExplicitListConstraint(new String[]{"SELECT","10", "20", "30"});
+
+         // org.apache.poi.ss.usermodel.Row row = sheet.createRow(2);
+
+           //createCell(row, 1,constraint , style);
+
+    //    dataValidation.setSuppressDropDownArrow(true);
+     //   sheet.addValidationData(dataValidation);
+
+
+
+        //ON N'A PAS BESOIN DE LISSEZ LES DONNées de la base !
+        // on veut que la fichiers soit vierge !
+
+
+/*
         for (Colis colis : listColis) {
+
             org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
 
-            createCell(row, columnCount++, colis.getNom_complet_client(), style);
-            createCell(row, columnCount++, colis.getNum_tel(), style);
-            createCell(row, columnCount++, colis.getAdresse_client(), style);
-            createCell(row, columnCount++, colis.getMode_paiement(), style);
-            createCell(row, columnCount++, colis.getDelegation_client(), style);
-            createCell(row, columnCount++, colis.getLongueur(), style);
-            createCell(row, columnCount++, colis.getLargeur(), style);
-            createCell(row, columnCount++, colis.getHauteur(), style);
+         //   createCell(row, columnCount++, colis.getNom_complet_client(), style);
 
-            createCell(row, columnCount++, colis.getPoids(), style);
+           // createCell(row, columnCount++, colis.getNum_tel(), style);
+            //createCell(row, columnCount++, colis.getAdresse_client(), style);
 
-            createCell(row, columnCount++, colis.getRemarque(), style);
-            createCell(row, columnCount++, colis.getCode_colis(), style);
-            createCell(row, columnCount++, colis.getService_colis(), style);
+            //createCell(row, columnCount++, colis.getDelegation_client(), style);
+            //createCell(row, columnCount++, colis.getLongueur(), style);
+           // createCell(row, columnCount++, colis.getLargeur(), style);
+           // createCell(row, columnCount++, colis.getHauteur(), style);
 
+           // createCell(row, columnCount++, colis.getPoids(), style);
 
+            //createCell(row, columnCount++, colis.getRemarque(), style);
+           // createCell(row, columnCount++, colis.getCode_colis(), style);
+
+        //    createCell(row, columnCount++, colis.getMode_paiement(), style);
 
 
         }
+
+
+
+ */
+
+
+
     }
+
+
 
 
 
@@ -172,7 +213,6 @@ public class ColisService implements IntColisService {
     public void exportExel(HttpServletResponse response) throws IOException {
         writeHeaderLine();
         writeDataLines();
-
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();
@@ -381,6 +421,7 @@ public class ColisService implements IntColisService {
                 .orElseThrow(() -> new ResourceNotFoundException("colis not found for this id :: " + Id));
         return ResponseEntity.ok().body(colis);
     }
+
 
     @Override
     public void export(HttpServletResponse response, int idcolis, String text, String filePath, int width, int height) throws DocumentException, IOException, WriterException {

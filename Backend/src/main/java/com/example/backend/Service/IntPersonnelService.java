@@ -28,7 +28,7 @@ public interface IntPersonnelService {
 
 
     ResponseEntity<Response>  addPersonnel ( MultipartFile file,MultipartFile file2,MultipartFile file3,
-                                          String personnel,int idroles)
+                                          String personnel)
             throws JsonParseException, JsonMappingException, Exception;
 
 

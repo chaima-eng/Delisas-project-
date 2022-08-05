@@ -53,7 +53,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
     @Override
-    public ResponseEntity<Response> addPersonnel(MultipartFile file,MultipartFile file2,MultipartFile file3, String personnel,int idroles) throws JsonParseException, JsonMappingException, Exception
+    public ResponseEntity<Response> addPersonnel(MultipartFile file,MultipartFile file2,MultipartFile file3, String personnel) throws JsonParseException, JsonMappingException, Exception
     {
 
         System.out.println("Ok .............");
@@ -111,10 +111,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
         perso.setPhoto(newFileName);
         perso.setPermis(filename2);
         perso.setCartegrise(filename3);
-        Roles roles= MyRolesRepo.findById( idroles).orElse(null);
-        roles.setName(roles.getName());
-        //roles.getPersonnels().add(perso);
-        perso.getRoles().add(roles);
+
 
         Personnel art = MyPersonnelRepo.save(perso);
 
@@ -171,7 +168,6 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
        perso.setMatriculevehicule(personnel.getMatriculevehicule());
        perso.setMontant_l(personnel.getMontant_l());
        perso.setSalaire(personnel.getSalaire());
-       perso.setPhoto(personnel.getPhoto());
        perso.setRole(personnel.getRole());
        perso.setPermis(personnel.getPermis());
        perso.setUserName(personnel.getUserName());
@@ -266,9 +262,16 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
+/*
+    @GetMapping(path="/Imgarticles/{id}")
+    public byte[] getPhoto(@PathVariable("id") Long id) throws Exception{
+        Article Article   = repository.findById(id).get();
+        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+Article.getFileName()));
+    }
 
 
 
+ */
 
 
 

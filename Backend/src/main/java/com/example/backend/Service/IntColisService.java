@@ -32,6 +32,7 @@ public interface IntColisService {
 
 
      ResponseEntity<Colis> getColisyId(int Id)  throws ResourceNotFoundException;
+  //  ResponseEntity<Colis> rechercheByCodeBar(String code_a_bar)  ;
 
 
     void export(HttpServletResponse response, int

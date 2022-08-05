@@ -66,35 +66,6 @@ public class RestController {
     @Autowired
     ServletContext context;
 
-/*
-    @PostMapping("/users/login")
-    public ResponseEntity<?> authenticateUser( @RequestBody Personnel data) {
-        System.out.println("aaaa");
-        System.out.println(data.getPassword());
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        data.getUserName(),
-                        data.getPassword())
-
-        );
-        System.out.println("bbbbb");
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getRole()));
-    }
-
-
-
-
- */
 
 
 
@@ -174,12 +145,12 @@ public class RestController {
         return Myservice.save(role);
     }
 
-    @PostMapping("/personnel/{idrole}")
+    @PostMapping("/personnel")
     public ResponseEntity<Response>  addPersonnel (@RequestPart("file") MultipartFile file,@RequestPart("file2") MultipartFile file2,@RequestPart("file3") MultipartFile file3,
-                                                   @RequestParam("personnel") String personnel,@PathVariable("idrole") int idrole) throws JsonParseException, JsonMappingException, Exception
+                                                   @RequestParam("personnel") String personnel) throws JsonParseException, JsonMappingException, Exception
     {
 
-        return Myservice.addPersonnel(file,file2,file3,personnel,idrole);
+        return Myservice.addPersonnel(file,file2,file3,personnel);
     }
 
 
@@ -215,8 +186,11 @@ public class RestController {
     @GetMapping(path="/Imgarticles/{id}")
     public byte[] getPhoto(@PathVariable("id") int id) throws Exception{
         Personnel personnel   = MyPersonnelRepo.findById(id).get();
-        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+personnel.getPhoto()));
+        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+personnel.getPhoto()+personnel.getCartegrise()+personnel.getPermis()));
     }
+
+
+
 
 
 

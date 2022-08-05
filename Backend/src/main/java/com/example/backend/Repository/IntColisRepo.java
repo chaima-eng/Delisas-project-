@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface IntColisRepo  extends JpaRepository<Colis,Integer> {
 
 
+  //  Colis findByCode_a_bar(String code_a_bar);
 
 
 

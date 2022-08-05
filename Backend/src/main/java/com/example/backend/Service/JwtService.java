@@ -2,8 +2,7 @@ package com.example.backend.Service;
 
 
 import com.example.backend.Entity.*;
-import com.example.backend.Repository.IntFournisseurRepo;
-import com.example.backend.Repository.IntPersonnelRepo;
+
 import com.example.backend.Repository.IntUserRepo;
 import com.example.backend.config.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
