@@ -1,6 +1,7 @@
 package com.example.backend.Service;
 
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.Role;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Repository.IntPersonnelRepo;
@@ -27,6 +28,8 @@ import javax.servlet.ServletContext;
 import javax.xml.ws.Response;
 import java.io.File;
 import java.util.*;
+
+import static com.example.backend.Entity.Role.Livreur;
 
 
 @Service
@@ -213,6 +216,23 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
     }
 
     @Override
+    public List<Personnel> getPersonnels() {
+
+        List p =new ArrayList();
+        for (Personnel personnel:MyPersonnelRepo.findAll())
+        {
+
+            if(personnel.getRole().equals(Livreur))
+            {
+               p.add(personnel);
+            }
+        }
+            return p;
+
+    }
+
+
+    @Override
     public void addRoleToUser(String username, String rolename) {
         Personnel appUser=MyPersonnelRepo.findByUserName(username);
         Roles appRole=MyRolesRepo.findByName(rolename);
@@ -258,20 +278,6 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
 
 
-
-
-
-
-/*
-    @GetMapping(path="/Imgarticles/{id}")
-    public byte[] getPhoto(@PathVariable("id") Long id) throws Exception{
-        Article Article   = repository.findById(id).get();
-        return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+Article.getFileName()));
-    }
-
-
-
- */
 
 
 

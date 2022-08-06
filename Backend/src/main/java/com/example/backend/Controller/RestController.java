@@ -7,6 +7,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.Role;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Entity.User;
 import com.example.backend.Exception.ResourceNotFoundException;
@@ -70,9 +71,11 @@ public class RestController {
 
 
 
-
-
-
+    @GetMapping("/getPersonnelByRole")
+    public List<Personnel> getPersonnels()
+    {
+       return Myservice.getPersonnels();
+    }
 
 
 

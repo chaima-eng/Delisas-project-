@@ -16,6 +16,7 @@ import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.IterableUtils;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 import org.apache.poi.ss.usermodel.DataValidation;
@@ -373,10 +374,6 @@ public class ColisService implements IntColisService {
 
 
     }
-
-
-
-
 
 
     @Override

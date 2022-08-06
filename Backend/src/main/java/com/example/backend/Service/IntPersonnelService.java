@@ -2,6 +2,7 @@ package com.example.backend.Service;
 
 
 import com.example.backend.Entity.Personnel;
+import com.example.backend.Entity.Role;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Exception.ResourceNotFoundException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -20,11 +21,11 @@ public interface IntPersonnelService {
 
   Personnel getPersonnel(String username);
 
+  List<Personnel> getPersonnels();
 
-  //  void LoginPersonnel(String password,String username );
+
 
    void addRoleToUser(String username, String rolename);
-  //  void LoginAdmin(String password,String username);
 
 
     ResponseEntity<Response>  addPersonnel ( MultipartFile file,MultipartFile file2,MultipartFile file3,

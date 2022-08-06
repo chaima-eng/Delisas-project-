@@ -26,7 +26,7 @@ public class Colis implements Serializable {
     private String code_a_bar;
     private int qrCode;
     private String nom_complet_client;
-    private int num_tel;
+    private double num_tel;
     private int num_tel_2;
     private float total;
     private int quantite;
@@ -35,13 +35,13 @@ public class Colis implements Serializable {
     private String delegation_client;
     private String adresse_client;
     private int nb_piece;
-    private int largeur;
-    private int longueur;
-    private int hauteur;
+    private double largeur;
+    private double longueur;
+    private double hauteur;
     private String mode_paiement;
     private String service_colis;
 
-    private int code_colis;
+    private double code_colis;
     private String designation_colis;
     private String remarque;
     @Enumerated(EnumType.STRING)
@@ -50,13 +50,13 @@ public class Colis implements Serializable {
     private AnomalieColis anomalieColis;
     private int compteur_anomalie;
     private String localisation_colis;
-    private float poids;
+    private double poids;
     @JsonIgnore
     @ManyToOne
     private Hub hub;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+   @ManyToMany(fetch = FetchType.EAGER)
     private Set<Fournisseur> fournisseurs = new HashSet<>();
 
 

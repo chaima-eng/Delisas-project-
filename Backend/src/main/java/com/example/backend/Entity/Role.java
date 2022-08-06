@@ -8,4 +8,5 @@ public enum Role {
     Gérant,
     Comptable,
     Admin
+
 }

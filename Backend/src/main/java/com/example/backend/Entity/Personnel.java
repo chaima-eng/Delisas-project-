@@ -2,6 +2,7 @@ package com.example.backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,13 +20,18 @@ import java.util.Set;
 public class Personnel extends User {
 
     private String matriculevehicule;
+
+
     private String permis;
+
     private String cartegrise;
     private String photo;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Roles> roles = new HashSet<>();
+
+
 
 
 

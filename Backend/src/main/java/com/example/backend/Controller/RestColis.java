@@ -66,22 +66,6 @@ public class RestColis {
 
 
 
-    @GetMapping("/export/excel")
-    public void exportToExcel(HttpServletResponse response) throws IOException {
-        response.setContentType("application/octet-stream");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=colis" + currentDateTime + ".xlsx";
-        response.setHeader(headerKey, headerValue);
-
-        List<Colis> listColis =Myservice.getAllColis();
-
-        ColisService excelExporter = new ColisService(listColis);
-
-        excelExporter.exportExel(response);
-    }
 
 
 

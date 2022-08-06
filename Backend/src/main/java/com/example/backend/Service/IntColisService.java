@@ -1,6 +1,7 @@
 package com.example.backend.Service;
 
 import com.example.backend.Entity.Colis;
+import com.example.backend.Entity.Fournisseur;
 import com.example.backend.Entity.Personnel;
 import com.example.backend.Entity.Roles;
 import com.example.backend.Exception.ResourceNotFoundException;
@@ -27,7 +28,7 @@ public interface IntColisService {
 
 
 
-     void save(Colis colis,int idhub,int idF);
+    void save(Colis colis,int idhub,int idF);
 
 
 
