@@ -52,10 +52,12 @@ public class PickupController {
 	 List<Colis> listedeColis(@PathVariable("idPickup") int idPickup) {
 		return ps.listedeColis(idPickup);
 	}
-	
-	
-
-	
-	
+	/*
+	@GetMapping("/findByFournisseursNomsociete/{nomsociete}")
+	@ResponseBody
+	 List<Colis> findByFournisseursNomsociete(@PathVariable("nomsociete") String nomsociete) {
+		return ps.findByFournisseursNomsociete(nomsociete);
+	}
+*/
 	
 }

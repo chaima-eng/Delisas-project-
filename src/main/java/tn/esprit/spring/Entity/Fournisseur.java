@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class Fournisseur extends User {
-    private String nom_societe;
+    private String nomsociete;
     private String adresse_societe;
     private String gouvernerat;
 

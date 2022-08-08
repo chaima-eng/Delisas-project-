@@ -1,5 +1,6 @@
 package tn.esprit.spring.Services;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,10 +8,14 @@ import java.util.Optional;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import tn.esprit.spring.Entity.Colis;
+import tn.esprit.spring.Entity.Etat_colis;
 import tn.esprit.spring.Entity.Etat_debrief;
 import tn.esprit.spring.Entity.Fournisseur;
 import tn.esprit.spring.Entity.Personnel;
@@ -109,7 +114,7 @@ public class RunsheetSercvice implements IRunsheetService {
 	        
 	        r.setCodeabarre(chiffreCodeBar);
 		    
-		    
+	        c.setEtat_colis(Etat_colis.En_cours_livraison);
 		    
 		    
 		rr.save(r);
@@ -203,6 +208,59 @@ public class RunsheetSercvice implements IRunsheetService {
 	
 	}
 
+	public String GenerateChiffreCodeBar(@PathVariable("idRunsheet") int idRunsheet)
+    {  
+		int idUser = 0;
+		Personnel p = pr.findById((int) idUser).orElse(null);
+		 Runsheet r = rr.findById(idRunsheet).orElse(null);
+		String x,y = "";
 
+    //  Runsheet runsheet=rr.findById(idRunsheet).orElse(null);
+
+      if(r.getIdRunsheet()!=0)
+      {
+          y="1";
+      }
+
+
+
+      if(r.getEtat_debrief().equals(Etat_debrief.non_cloturé))
+      {
+          x="01";
+          System.out.println("chiffreCodeBar = " + x);
+
+      }
+      else if(r.getEtat_debrief().equals(Etat_debrief.cloturé))
+      {
+          x="02";
+          System.out.println("chiffreCodeBar = " + x);
+      }
+      else
+      {
+          x="00";
+      }
+     // String var ="";
+      String chiffreCodeBar ="";
+      String idf ="";
+      String idC="";
+     
+          if(r.getIdRunsheet()!=0)
+          {
+              idf= String.valueOf(p.getIdUser());
+             // var= String.valueOf(r.getHub().getIdhub());
+              //System.out.println( var);
+              idC= String.valueOf(r.getIdRunsheet());
+              chiffreCodeBar = y.concat(x).concat("0").concat(idf).concat(idC);
+              System.out.println("valeur final = " + chiffreCodeBar);
+          }
+      
+      r.setCodeabarre(chiffreCodeBar);
+      rr.save(r);
+      return chiffreCodeBar;
+
+
+    }
+	
+	
 }
 

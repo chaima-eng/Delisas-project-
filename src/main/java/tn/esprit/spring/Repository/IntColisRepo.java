@@ -16,7 +16,7 @@ import java.lang.String;
 public interface IntColisRepo  extends JpaRepository<Colis,Integer> {
 	
 	List<Colis> findByPickupsIdPickup(int idPickup);
-	
+	List<Colis> findByFournisseursNomsociete(String nomsociete);
 	  Colis findByCodeabar(String codeabar);
 	 //Colis findByCode_a_bar(String code_a_bar);
 	//List<Colis> findByPickupId(int idPickup);

@@ -50,7 +50,7 @@ public class PickupService implements IPickupService{
 						System.out.println("Somme Totale : "+SommeTotal);
 						 pickup.setPrix_total(SommeTotal);	
 					});
-				    c.setEtat_colis(Etat_colis.En_cours);
+				    c.setEtat_colis(Etat_colis.En_cours_enlevement);
 				    pr.save(pickup);
 				    }
 				
@@ -121,7 +121,11 @@ public class PickupService implements IPickupService{
 		public List<Colis> retrieveColis() {
 			return (List<Colis>) cr.findAll();
 		}
-
+		/*
+		@Override
+		public List<Colis> findByFournisseursNomsociete(String nomsociete) {
+			return cr.findByFournisseursNomsociete(nomsociete);	
+		}*/
 		
 
 }

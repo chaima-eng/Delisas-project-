@@ -44,4 +44,6 @@ public interface IPickupService {
 
 	List<Colis> retrieveColis();
 
+	//List<Colis> findByFournisseursNomsociete(String nomsociete);
+
 }
