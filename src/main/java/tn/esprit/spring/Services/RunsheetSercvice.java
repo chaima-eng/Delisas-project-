@@ -19,6 +19,7 @@ import tn.esprit.spring.Entity.Etat_colis;
 import tn.esprit.spring.Entity.Etat_debrief;
 import tn.esprit.spring.Entity.Fournisseur;
 import tn.esprit.spring.Entity.Personnel;
+import tn.esprit.spring.Entity.Role;
 import tn.esprit.spring.Entity.Runsheet;
 import tn.esprit.spring.Entity.Societe;
 import tn.esprit.spring.Entity.User;
@@ -265,6 +266,22 @@ public class RunsheetSercvice implements IRunsheetService {
 	   @Override
 	    public Personnel getPersonnel(String username) {
 	        return pr.findByUserName(username);
+	    }
+	   
+	   @Override
+	    public List<Personnel> getPersonnels() {
+
+	        List p =new ArrayList();
+	        for (Personnel personnel:pr.findAll())
+	        {
+
+	            if(personnel.getRole()==Role.Livreur)
+	            {
+	               p.add(personnel);
+	            }
+	        }
+	            return p;
+
 	    }
 	
 }

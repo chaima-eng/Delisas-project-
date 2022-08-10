@@ -35,5 +35,7 @@ public interface IRunsheetService {
 
 	Personnel getPersonnel(String username);
 
+	List<Personnel> getPersonnels();
+
 	
 }

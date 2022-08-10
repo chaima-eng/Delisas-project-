@@ -75,4 +75,10 @@ public class RunsheetController {
 	 Personnel getPersonnel(@PathVariable(name="username")String username) {
 		return rs.getPersonnel(username);
 	}
+	
+	@GetMapping("/retrieve-Personnels")
+	@ResponseBody
+	List<Personnel> getPersonnels(){
+	return rs.getPersonnels();
+	}
 }
