@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.Entity.Colis;
+import tn.esprit.spring.Entity.Personnel;
 import tn.esprit.spring.Entity.Pickup;
 import tn.esprit.spring.Entity.Runsheet;
 import tn.esprit.spring.Entity.Societe;
@@ -67,5 +68,11 @@ public class RunsheetController {
 	@ResponseBody
 	 int getnbrColis(@PathVariable(name="idRunsheet")int idRunsheet) {
 		return rs.getnbrColis(idRunsheet);
+	}
+	
+	@GetMapping("/getPersonnel/{username}")
+	@ResponseBody
+	 Personnel getPersonnel(@PathVariable(name="username")String username) {
+		return rs.getPersonnel(username);
 	}
 }

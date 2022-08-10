@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import tn.esprit.spring.Entity.Personnel;
+import tn.esprit.spring.Entity.Role;
 
 @Repository
 public interface IntPersonnelRepo extends JpaRepository<Personnel,Integer>
@@ -13,6 +14,6 @@ public interface IntPersonnelRepo extends JpaRepository<Personnel,Integer>
     Personnel findByUserName(String userName);
     Personnel findByEmail(String email);
    
-
+  
 
 }

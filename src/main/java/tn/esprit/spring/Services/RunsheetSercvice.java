@@ -194,6 +194,7 @@ public class RunsheetSercvice implements IRunsheetService {
 	
 	@Override
 	public List<Runsheet> retrieveRunsheet() {
+		
 		return (List<Runsheet>) rr.findAll();
 	}
 	
@@ -261,6 +262,10 @@ public class RunsheetSercvice implements IRunsheetService {
 
     }
 	
+	   @Override
+	    public Personnel getPersonnel(String username) {
+	        return pr.findByUserName(username);
+	    }
 	
 }
 

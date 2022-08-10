@@ -2,6 +2,7 @@ package tn.esprit.spring.Services;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +10,7 @@ import org.dom4j.DocumentException;
 
 
 import tn.esprit.spring.Entity.Colis;
+import tn.esprit.spring.Entity.Personnel;
 import tn.esprit.spring.Entity.Runsheet;
 
 public interface IRunsheetService {
@@ -30,6 +32,8 @@ public interface IRunsheetService {
 	Colis retrieveColis(String codeabar);
 
 	int getnbrColis(int idRunsheet);
+
+	Personnel getPersonnel(String username);
 
 	
 }

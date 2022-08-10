@@ -38,7 +38,7 @@ public class Runsheet implements Serializable {
 	 @Enumerated(EnumType.STRING)
 	    private Etat_debrief etat_debrief ;
 	 
-	 @JsonIgnore
+	// @JsonIgnore
 	   @OneToOne
 	   private Personnel personnel;
 	 @JsonIgnore

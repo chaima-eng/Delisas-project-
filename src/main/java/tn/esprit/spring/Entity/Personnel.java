@@ -14,8 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@JsonInclude(value= JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonInclude(value= JsonInclude.Include.NON_NULL)
+//@JsonIgnoreProperties(ignoreUnknown=true)
 public class Personnel extends User {
 
     private String matriculevehicule;
