@@ -32,7 +32,8 @@ public interface IntColisRepo  extends JpaRepository<Colis,Integer> {
 	
 	@Query("SELECT SUM(c.total) FROM Colis c INNER JOIN Runsheet p ON c.idColis = p.idRunsheet")  
     public float Sommerunsheet(@Param ("idRunsheet") int idRunsheet);
-	
+
+
 	@Query(value="SELECT coliss_id_colis FROM colis_runsheets where runsheets_id_runsheet = :idRunsheet",nativeQuery=true)  
     public List Listid(@Param ("idRunsheet") int idRunsheet);
 	

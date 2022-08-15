@@ -43,9 +43,11 @@ public class Hub implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int id_Hub;
 	private String Adresse_hub;
-	
+
 	@Enumerated(EnumType.STRING)
 	   private Gouvernerat gouvernerat_hub;
+
+
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	Collection<Gouvernerat> gouvernerat_list;

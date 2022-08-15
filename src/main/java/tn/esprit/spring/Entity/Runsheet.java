@@ -34,7 +34,8 @@ public class Runsheet implements Serializable {
 	private int idRunsheet;
 	private LocalDate datecreation= LocalDate.now();
 	private  Float prixtotal;
-	 private String codeabarre;
+	private String codeabarre;
+
 	 @Enumerated(EnumType.STRING)
 	    private Etat_debrief etat_debrief ;
 	 

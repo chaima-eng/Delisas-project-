@@ -44,7 +44,7 @@ public class HubService implements IHubService {
 	public void deleteHub(int id_Hub) {
 		hb.deleteById(id_Hub);
 	}
-	
+
 	@Override
 	public Hub updateHub(Hub h, int id_Hub) {
 		Hub hh = hb.findById(id_Hub).orElse(null);
@@ -53,4 +53,6 @@ public class HubService implements IHubService {
 			hh.setGouvernerat_list(h.getGouvernerat_list());
 			return hb.save(hh);
 	}
+
+
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.barcodes.qrcode.WriterException;
 import org.dom4j.DocumentException;
 
 
@@ -36,6 +37,18 @@ public interface IRunsheetService {
 	Personnel getPersonnel(String username);
 
 	List<Personnel> getPersonnels();
+
+
+	 void export(HttpServletResponse response,int idS,int idrunsheet,int idP,String chiffreBarcode, int width, int height) throws DocumentException, IOException, WriterException;
+
+
+
+
+
+
+
+
+
 
 	
 }

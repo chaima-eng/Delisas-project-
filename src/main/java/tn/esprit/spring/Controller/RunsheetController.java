@@ -1,10 +1,18 @@
 package tn.esprit.spring.Controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
+import com.itextpdf.barcodes.qrcode.WriterException;
+
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +32,7 @@ import tn.esprit.spring.Entity.Personnel;
 import tn.esprit.spring.Entity.Pickup;
 import tn.esprit.spring.Entity.Runsheet;
 import tn.esprit.spring.Entity.Societe;
+import tn.esprit.spring.Repository.RunsheetRepository;
 import tn.esprit.spring.Services.IPickupService;
 import tn.esprit.spring.Services.IRunsheetService;
 
@@ -33,6 +42,9 @@ import tn.esprit.spring.Services.IRunsheetService;
 public class RunsheetController {
 	@Autowired
 	IRunsheetService rs;
+
+	@Autowired
+	RunsheetRepository rr;
 	
 	
 	@PostMapping("/ajouterEtaffectercRunsheet/{codeabar}/{idUser}")
@@ -81,4 +93,39 @@ public class RunsheetController {
 	List<Personnel> getPersonnels(){
 	return rs.getPersonnels();
 	}
+
+
+	@GetMapping("/colis/export/pdf")
+	public void exportToPDF(HttpServletResponse response, int idrunsheet, int idS,int idP)
+			throws DocumentException, IOException, WriterException {
+
+		Runsheet r=rr.findById(idrunsheet).orElse(null);
+		String chiffreCodeBar = r.getCodeabarre();
+
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=runsheet" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+		rs.export(response,idrunsheet,idS,idP, chiffreCodeBar,90,120);
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

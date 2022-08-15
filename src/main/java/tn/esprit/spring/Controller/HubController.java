@@ -64,4 +64,6 @@ public class HubController {
 	Hub updateHub(@RequestBody Hub a,@PathVariable("id_Hub") int id_Hub){
 		return hs.updateHub(a, id_Hub);
 	}
+
+
 }
