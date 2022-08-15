@@ -40,6 +40,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 
+import static com.example.backend.Entity.Role.Livreur;
 
 
 @Service
@@ -377,7 +378,124 @@ public class ColisService implements IntColisService {
 
 
     @Override
+    public List<Colis> getColisCrée() {
+
+
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.crée))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+
+
+    }
+
+    @Override
+    public List<Colis> getColisEn_stock() {
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.En_stock))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+    }
+
+    @Override
+    public List<Colis> getColisEn_cours_livraison() {
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.En_cours_livraison))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+    }
+
+    @Override
+    public List<Colis> Planification_retour() {
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.Planification_retour))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+    }
+
+    @Override
+    public List<Colis> Retourné() {
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.Retourné))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+    }
+
+    @Override
+    public List<Colis> Livrée_payée() {
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.Livrée_payée))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+
+
+
+    }
+
+    @Override
+    public List<Colis> En_cours_Enlevement() {
+
+        List p =new ArrayList();
+
+        for (Colis colis:MyColisRepo.findAll())
+        {
+
+            if(colis.getEtat_colis().equals(Etat_colis.En_cours_Enlevement))
+            {
+                p.add(colis);
+            }
+        }
+        return p;
+    }
+
+
+    @Override
     public void save(Colis colis, int idhub,int idF) {
+
+
+
         Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
         Hub hub= MyHRepo.findById( idhub).orElse(null);
 
@@ -433,7 +551,8 @@ public class ColisService implements IntColisService {
 
 
     @Override
-    public void export(HttpServletResponse response,int idF ,int idS,int idcolis, String chiffreCodeBar, int width, int height, String filePath) throws DocumentException, IOException, WriterException {
+    public void export(HttpServletResponse response,int idF ,int idS,int idcolis, String chiffreCodeBar, int width, int height, String filePath) throws DocumentException, IOException, WriterException
+    {
 
         Colis colis = MyColisRepo.findById(idcolis).orElse(null);
 
@@ -441,7 +560,9 @@ public class ColisService implements IntColisService {
         Fournisseur F = MyFRepo.findById(idF).orElse(null);
         String image= Soc.getLogo();
         chiffreCodeBar = colis.getCode_a_bar();
+
         Document document = new Document(PageSize.A4);
+
 
 
 
@@ -470,7 +591,7 @@ public class ColisService implements IntColisService {
         /*--Title-*/
         Font font2 = FontFactory.getFont(FontFactory.TIMES_ROMAN);
         font2.setSize(20);
-        //  font2.setColor(Color.black);
+
         Paragraph p2 = new Paragraph(" Bordereau de livraison N° : "+colis.getCode_a_bar(), font2);
         p2.setAlignment(Paragraph.ALIGN_CENTER);
         document.add(p2);
@@ -746,17 +867,6 @@ public class ColisService implements IntColisService {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

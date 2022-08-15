@@ -69,6 +69,58 @@ public class RestColis {
 
 
 
+    @GetMapping("/getColisCrée")
+    public List<Colis> getColisCrée()
+    {
+        return Myservice.getColisCrée();
+    }
+
+    @GetMapping("/getColisEnStock")
+    public List<Colis> getColisStock()
+    {
+        return Myservice.getColisEn_stock();
+    }
+
+
+
+
+    @GetMapping("/getColisEnCoursLiv")
+    public List<Colis> getColisEn_cours_livraison()
+    {
+        return Myservice.getColisEn_cours_livraison();
+    }
+
+    @GetMapping("/planificationRetour")
+    public List<Colis> PlanificationRetour()
+    {
+        return Myservice.Planification_retour();
+    }
+
+
+
+    @GetMapping("/Retourné")
+    public List<Colis> Retourné()
+    {
+        return Myservice.Retourné();
+    }
+
+
+
+    @GetMapping("/Livrée_payée")
+    public List<Colis> Livrée_payée()
+    {
+        return Myservice.Livrée_payée();
+    }
+
+    @GetMapping("/En_cours_Enlevement")
+    public List<Colis> En_cours_Enlevement()
+    {
+        return Myservice.En_cours_Enlevement();
+    }
+
+
+
+
 
     @PostMapping("/save/{idColis}")
     public String GenerateChiffreCodeBar2(@PathVariable("idColis") int idColis)

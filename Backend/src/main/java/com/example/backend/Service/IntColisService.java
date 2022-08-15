@@ -25,6 +25,31 @@ import java.util.Map;
 public interface IntColisService {
 
 
+    List<Colis> getColisCrée();
+
+    List<Colis> getColisEn_stock();
+
+    List<Colis> getColisEn_cours_livraison();
+
+    List<Colis> Planification_retour();
+
+
+    List<Colis> Retourné();
+
+    List<Colis> Livrée_payée();
+
+
+    List<Colis> En_cours_Enlevement();
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33,14 +58,14 @@ public interface IntColisService {
 
 
      ResponseEntity<Colis> getColisyId(int Id)  throws ResourceNotFoundException;
-  //  ResponseEntity<Colis> rechercheByCodeBar(String code_a_bar)  ;
+
 
 
     void export(HttpServletResponse response, int
             idcolis, String text, String filePath, int width, int height)
             throws DocumentException, IOException, WriterException;
 
-   // ResponseEntity<Colis> updateColis(int id, Colis colis);
+ 
     Colis updateColis(Colis colis) throws ResourceNotFoundException;
 
     Map<String, Boolean> DeleteColis(int colisId)

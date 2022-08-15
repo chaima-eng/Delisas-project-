@@ -4,12 +4,13 @@ public enum Etat_colis {
 
     crée,
     En_stock,
-    En_cours,
+    En_cours_livraison,
     Livré,
     Planification_retour,
     Retourné,
     Livrée_payée,
-    échange
+    échange,
+    En_cours_Enlevement
 
 
 }

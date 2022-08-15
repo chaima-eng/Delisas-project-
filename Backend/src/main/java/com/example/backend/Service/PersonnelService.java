@@ -219,6 +219,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
     public List<Personnel> getPersonnels() {
 
         List p =new ArrayList();
+
         for (Personnel personnel:MyPersonnelRepo.findAll())
         {
 
