@@ -170,7 +170,7 @@ public class ColisService implements IntColisService {
 
 
         //ON N'A PAS BESOIN DE LISSEZ LES DONNées de la base !
-        // on veut que la fichiers soit vierge !
+        // on veut que la fichier soit vierge !
 
 
 /*

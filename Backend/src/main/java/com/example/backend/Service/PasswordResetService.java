@@ -75,7 +75,7 @@ public class PasswordResetService {
         createPasswordResetTokenForUser(user, token);
         String passwordResetLink = "http://localhost:8081/Delisas/api/auth/reset-password?token=" + token;
         String content = buildEmail(user.getUserName(), passwordResetLink);
-        mailService.sendSimpleEmail(userEmail, "Reset Your Password", content, false);
+        mailService.sendSimpleEmail(userEmail, "Reset Your Password", content);
     }
 
     private String buildEmail(String name, String link) {

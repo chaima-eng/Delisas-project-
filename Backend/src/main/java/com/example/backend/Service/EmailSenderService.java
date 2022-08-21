@@ -11,15 +11,30 @@ public class EmailSenderService {
     public JavaMailSender emailSender;
 
 
-    public void sendSimpleEmail(String toAddress, String subject, String message,Boolean html) {
+    public void sendSimpleEmail(String toAddress, String subject, String message) {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(toAddress);
-        simpleMailMessage.setSubject(subject);
+       simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(message);
         emailSender.send(simpleMailMessage);
         System.out.println("Mail sent successfully...");
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -173,7 +173,8 @@ public class RestColis {
 
 
     @GetMapping("/colis/export/pdf")
-    public void exportToPDF(HttpServletResponse response,int idcolis,int idS,int idF) throws DocumentException, IOException, WriterException {
+    public void exportToPDF(HttpServletResponse response,int idcolis,int idS,int idF) throws DocumentException, IOException, WriterException
+    {
 
         Colis colis=MyColisRepo.getById(idcolis);
         String chiffreCodeBar = colis.getCode_a_bar();
