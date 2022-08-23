@@ -56,7 +56,7 @@ public class Colis implements Serializable {
     private Hub hub;
 
     @JsonIgnore
-   @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Fournisseur> fournisseurs = new HashSet<>();
 
 

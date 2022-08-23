@@ -490,12 +490,35 @@ public class ColisService implements IntColisService {
         return p;
     }
 
+    @Override
+    public List<Colis> ListColisByFournisseur(int idFournisseur) {
+        Fournisseur f = MyFRepo.findById(idFournisseur).orElse(null);
+        List p =new ArrayList();
+
+        for(Colis c : MyColisRepo.findAll())
+        {
+            for (Fournisseur fournisseur :c.getFournisseurs())
+
+            {
+                if(fournisseur.getIdUser()==idFournisseur)
+                {
+                    p.add(c);
+
+                }
+            }
+
+        }
+
+
+
+
+
+        return p;
+    }
+
 
     @Override
     public void save(Colis colis, int idhub,int idF) {
-
-
-
         Fournisseur fournisseur = MyFRepo.findById(idF).orElse(null);
         Hub hub= MyHRepo.findById( idhub).orElse(null);
 

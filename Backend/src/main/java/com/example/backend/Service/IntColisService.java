@@ -44,6 +44,8 @@ public interface IntColisService {
 
 
 
+    List<Colis> ListColisByFournisseur(int idFournisseur);
+
 
 
 

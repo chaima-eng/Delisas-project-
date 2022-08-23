@@ -75,7 +75,7 @@ public class ExcelController {
                 Colis colis = new Colis();
 
                 XSSFRow row = worksheet.getRow(index);
-              //  Integer id = (int) row.getCell(0).getNumericCellValue();
+
 
                 colis.setNom_complet_client(row.getCell(0).getStringCellValue());
                 colis.setService_colis(row.getCell(1).getStringCellValue());

@@ -102,4 +102,76 @@ public class JwtService implements UserDetailsService {
 		}
 	}
 
+
+
+
+
+
+
+
+
+
+	public JwtResponse createJwtTokenLivreur(JwtRequestLiv jwtRequest)throws Exception{
+		System.out.print(jwtRequest);
+		String userName ="livreur";
+		//String userName=jwtRequest.getCIN();
+
+		System.out.print(userName);
+		String userPassword=jwtRequest.getCIN();
+
+		authenticate(userName,userPassword);
+		System.out.println("authentification"+userName+" "+userPassword);
+
+		final	UserDetails userDetails = loadUserByUsername(userName);
+
+		System.out.println("userDetails: "+userDetails);
+
+
+		String newGeneratedToken=jwtu.generateToken(userDetails);
+		User user = ur.findByUserName(userName);
+
+		System.out.print(user);
+		String role = "Livreur";
+		/*
+		if(user instanceof Personnel){
+
+
+			role=((Personnel) user).getRole().name();
+
+
+		}  else  if(user instanceof Fournisseur) {
+			role="Fournisseur";
+		}
+
+		 */
+
+
+		return new JwtResponse(user, newGeneratedToken,role);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

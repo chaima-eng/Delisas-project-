@@ -6,17 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="6bde83ef-6cd7-424d-bbc6-5664e4347f92" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/ExcelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/ExcelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/JwtController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestColis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Controller/RestColis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Colis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/Colis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ColisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/EmailSenderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/EmailSenderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/ExcelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PasswordResetService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PasswordResetService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/SendMail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/SendMail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/EmailSenderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/EmailSenderService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/FournisseurService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/FournisseurService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PasswordResetService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PasswordResetService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/IntColisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/backend/Service/PersonnelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/JwtController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Controller/RestColis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/ColisService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntColisService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/IntColisService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/JwtService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/JwtService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/PersonnelService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/backend/Service/SendMail.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/backend/Service/SendMail.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +72,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Shayma/Downloads/Delisas-project--khalsichaima (1) (1)/Delisas-project--khalsichaima (1)/Delisas-project--khalsichaima/Backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Shayma/Documents/GitHub/Delisas-project-/Backend&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;2e427c268ac1768b9add94b65e2d6c14&quot;
   }
 }</component>
@@ -160,6 +165,12 @@
       <workItem from="1660907665804" duration="1024000" />
       <workItem from="1660920418205" duration="1263000" />
       <workItem from="1660925190182" duration="641000" />
+      <workItem from="1661080588955" duration="3225000" />
+      <workItem from="1661087475087" duration="4255000" />
+      <workItem from="1661101809486" duration="79000" />
+      <workItem from="1661103844110" duration="535000" />
+      <workItem from="1661104673899" duration="550000" />
+      <workItem from="1661268791526" duration="1072000" />
     </task>
     <servers />
   </component>

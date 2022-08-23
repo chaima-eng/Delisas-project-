@@ -51,6 +51,22 @@ public class JwtController {
 
 
 
+	@PostMapping("/authLivreur")
+	public JwtResponse createJwtTokenLivreur(JwtRequestLiv jwtRequest)throws Exception
+	{
+		return jwts.createJwtTokenLivreur(jwtRequest);
+	}
+
+
+
+
+
+
+
+
+
+
+
 	@PostMapping("/auth")
 	public JwtResponse createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception{
 		return jwts.createJwtToken(jwtRequest);

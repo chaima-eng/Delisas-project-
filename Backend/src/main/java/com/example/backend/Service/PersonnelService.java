@@ -111,14 +111,17 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
         String DefaultPasword = perso.getTel();
 
         perso.setPassword(passwordEncoder.encode(DefaultPasword));
+
         perso.setPhoto(newFileName);
         perso.setPermis(filename2);
         perso.setCartegrise(filename3);
 
+        perso.setCin(passwordEncoder.encode(perso.getCin()));
+
 
         Personnel art = MyPersonnelRepo.save(perso);
 
-        mail.MailPerso(perso.getIdUser());
+
         System.out.println("mail sent with success" +
                 "");
 
@@ -126,6 +129,7 @@ public class PersonnelService implements IntPersonnelService, UserDetailsService
 
         if (art != null)
         {
+            mail.MailPerso(perso.getIdUser());
             return new ResponseEntity<Response>( HttpStatus.OK);
         }
         else

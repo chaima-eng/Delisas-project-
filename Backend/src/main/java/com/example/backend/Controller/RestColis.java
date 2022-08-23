@@ -66,7 +66,11 @@ public class RestColis {
 
 
 
-
+    @GetMapping("/ListColisByFournisseur/{idF}")
+    public List<Colis> ListColisByFournisseur(@PathVariable("idF") int idFournisseur)
+    {
+        return Myservice.ListColisByFournisseur(idFournisseur);
+    }
 
 
     @GetMapping("/getColisCrée")
